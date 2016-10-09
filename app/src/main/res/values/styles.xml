@@ -20,4 +20,11 @@
         <item name="android:background">@color/fengexian</item>
     </style>
 
+    <style name="indeterminate_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:drawable/toast_frame</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>

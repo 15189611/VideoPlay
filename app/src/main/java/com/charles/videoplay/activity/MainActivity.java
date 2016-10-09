@@ -1,7 +1,10 @@
 package com.charles.videoplay.activity;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.charles.videoplay.R;
 import com.charles.videoplay.adapter.MainAdatper;
@@ -27,6 +30,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements TabIndicator.OnTabClickListener {
     @Bind(R.id.fm_content)
     NoScrollViewPager viewPager;
+    @Bind(R.id.llToolbarParent)
+    RelativeLayout toolbarParent;
 
     public static final int INDEX = 0;
     public static final int LOVE = 1;
@@ -41,7 +46,7 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
 
     private MainAdatper mainAdatper;
     private TabIndicator mMainIndicator;
-
+    private FragmentManager fragmentManager;
     private int currentTabIndex;
 
     @Override
@@ -65,7 +70,8 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
         fragmentList.add(bangDanFragment);
         fragmentList.add(mineFragment);
 
-        mainAdatper = new MainAdatper(getSupportFragmentManager(),fragmentList);
+        fragmentManager = getSupportFragmentManager();
+        mainAdatper = new MainAdatper(fragmentManager,fragmentList);
         viewPager.setAdapter(mainAdatper);
         viewPager.setNoScroll(true);
         viewPager.setCurrentItem(0);
@@ -87,7 +93,7 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
     @Override
     protected void initView() {
         setTitle("首页");
-
+        toolbarParent.setVisibility(View.GONE);
     }
 
     @Override
@@ -142,18 +148,22 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
     }
 
     private void setMyselfTitle() {
+        toolbarParent.setVisibility(View.VISIBLE);
         tvTitle.setText("我的");
     }
 
     private void setBangDanTitle() {
+        toolbarParent.setVisibility(View.VISIBLE);
         tvTitle.setText("榜单");
     }
 
     private void setLOVETitle() {
+        toolbarParent.setVisibility(View.VISIBLE);
         tvTitle.setText("关注");
     }
 
     private void setIndexTitle() {
+        toolbarParent.setVisibility(View.GONE);
         tvTitle.setText("首页");
     }
 
@@ -161,5 +171,16 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        clearFragments();
     }
+
+    private void clearFragments() {
+        if (fragmentManager != null) {
+            List<Fragment> fragments = fragmentManager.getFragments();
+            if (null != fragments && fragments.size() != 0) {
+                fragments.clear();
+            }
+        }
+    }
+
 }

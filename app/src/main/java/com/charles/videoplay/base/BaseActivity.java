@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.charles.videoplay.R;
@@ -12,6 +13,7 @@ import com.charles.videoplay.util.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -22,7 +24,7 @@ public abstract class BaseActivity extends SwipeBackBaseActivity {
 
     protected final String TAG = this.getClass().getName();
     protected  TextView tvTitle;
-
+    public Toolbar toolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,7 @@ public abstract class BaseActivity extends SwipeBackBaseActivity {
             return;
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar == null) {
             throw new NullPointerException("please add toolbar in layout");
         }
