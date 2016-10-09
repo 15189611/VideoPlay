@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/in_toolbar" />
+
+    <com.charles.videoplay.widget.NoScrollViewPager
+        android:id="@+id/fm_content"
+        android:layout_below="@+id/llToolbarParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/mMainTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <View
+            style="@style/full_line_style"
+            android:layout_height="@dimen/margin_one"
+            android:background="@color/blue" />
+
+        <com.charles.videoplay.ui.TabIndicator
+            android:id="@+id/mMainIndicator"
+            android:layout_width="fill_parent"
+            android:layout_height="53dp"
+            android:background="@color/white"
+            android:clickable="true" />
+    </LinearLayout>
+
+</RelativeLayout>

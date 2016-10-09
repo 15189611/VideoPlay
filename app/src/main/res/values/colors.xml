@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="wheel_divider_color">#FF111111</color>
+    <color name="widgets_emo_tab_pressed">#c8c8c8</color>
+    <color name="widgets_emo_tab_normal">#ffffff</color>
+    <color name="view_dot_pressed">#00B9EF</color>
+    <color name="view_dot_normal">#7E7E7E</color>
+
+
+    <color name="guanfang_kefu">#F5A623</color>
+
+    <color name="title_color">#00B9EF</color>
+    <color name="ypp_title_color">#00B9EF</color>
+    <color name="blue">#00B9EF</color>
+    <color name="blue_press">#009CCB</color>
+    <color name="blue_customer_title">#BBE9FA</color>
+    <color name="ypp_black">#F2212121</color>
+    <color name="ypp_blue">#00B9EF</color>
+    <color name="blue_unselect">#51b2de</color>
+    <color name="blue_ripple">#6600B9EF</color>
+    <color name="read_blue">#00A2D2</color>
+    <color name="darkblue">#04A5D9</color>
+    <color name="dingdan_count">#4A4A4A</color>
+    <color name="pink">#EA9DEA</color>
+    <color name="loading_bg_color_1">#0C2C39</color>
+    <color name="loading_bg_color_2">#0C2C39</color>
+    <color name="loading_bg_color_3">#0C2C39</color>
+    <color name="loading_text_bg_color_1">#4E7195</color>
+    <color name="loading_text_bg_color_11">#4E7195</color>
+    <color name="loading_text_bg_color_2">#CCF1FC</color>
+    <color name="loading_text_bg_color_22">#AEEAFC</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_20">#33000000</color>
+    <color name="transparent_30">#4c000000</color>
+    <color name="transparent_40">#66000000</color>
+    <color name="transparent_50">#80000000</color>
+    <color name="transparent_60">#99000000</color>
+    <color name="ring_color_red">#F24525</color>
+    <color name="ring_color_gray">#F8F8F8</color>
+    <color name="blue_light">#70D8F6</color>
+    <color name="blue_gender">#97BCF0</color>
+    <color name="pink_gender">#FFC4D0</color>
+    <color name="pink_xingzuo">#FF88A0</color>
+    <color name="color_redu">#F78B73</color>
+    <color name="blue_light_press">#5FC7E5</color>
+    <color name="search_bar_bg">#ededed</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_70">#70FFFFFF</color>
+    <color name="white_f2">#F2FFFFFF</color>
+    <color name="seventyfive_white">#C5EAF6</color>
+    <color name="rubaise">#EFEFEF</color>
+    <color name="transparency_gray">#CC333333</color>
+    <color name="hint_white">#C3C3C3</color>
+    <color name="sidebar_hint_white">#C3C3C3C3</color>
+    <color name="black">#000000</color>
+    <color name="draftcolor">#b71414</color>
+    <color name="black_70">#70000000</color>
+    <color name="black_interest_text">#006786</color>
+    <color name="dialog_message_color">#DE000000</color>
+    <color name="instruction_bg">#0a1321</color>
+    <color name="gray">#7E7E7E</color>
+    <color name="gray_dark">#4E4E4E</color>
+    <color name="gray_hint">#D1D1D1</color>
+    <color name="gray_hint_t">#66ffffff</color>
+    <color name="backgroud_white">#F8F8F8</color>
+    <color name="fabudongtai_bg">#F8F8F8</color>
+    <color name="chat_backgroud">#EBEBEB</color>
+    <color name="userinfo_count_tv_color">#E5E5E5</color>
+    <color name="backgroud_light_gray">#F8F8F8</color>
+    <color name="female">#FF88A0</color>
+    <color name="dialog_menu_bg">#616161</color>
+    <color name="shaixuan_dialog_menu_bg">#99000000</color>
+    <color name="guide_bg">#99000000</color>
+    <color name="male">#009BDD</color>
+    <color name="code_blue_press">#009CCB</color>
+    <color name="round_normal">#FFBFBFBF</color>
+    <color name="round_selected">#FF555555</color>
+    <color name="round_corner_filter_green">#FF66CCFF</color>
+    <color name="round_corner_filter_border">#FF000000</color>
+    <color name="profile_avater_cover_selected">#7F000000</color>
+    <color name="time_select_bg">#2F000000</color>
+    <color name="profile_avater_cover_normal">#00000000</color>
+    <color name="texttran">#EEEEEEEE</color>
+    <color name="recharge_way">#F3F3F3</color>
+    <color name="white_transparent">#CCFFFFFF</color>
+    <color name="blue_transparent">#2200B9EF</color>
+    <color name="orange_color">#F5A623</color>
+    <color name="live_dashang_text">#D97E33</color>
+
+    <color name="pay_type_color">#F5A623</color>
+    <color name="chatroom_message_bg_color">#33000000</color>
+    <color name="live_start_bg">#44000000</color>
+
+    <!-- 取消 -->
+    <color name="price_color">#FF0E0E</color>
+    <color name="selectgod_price_color">#FF5353</color>
+    <color name="redT">#AAFF0000</color>
+    <color name="dark_red">#D0021B</color>
+    <color name="red">#FF0000</color>
+    <color name="light_red">#EB4B4B</color>
+    <color name="green">#28c41c</color>
+    <color name="light_green">#7ED321</color>
+    <color name="read_green">#71C57E</color>
+    <!-- 总金额 -->
+    <color name="yellow_light">#ffd102</color>
+    <color name="yellow">#F8C060</color>
+    <color name="zongshouru_flag">#B1B0B1</color>
+    <color name="zongshouru_info">#5C5B5C</color>
+    <!-- 橘色(支付) -->
+    <color name="orange">#F5A623</color>
+    <color name="chat_history_message">#888888</color>
+    <color name="dark_gray">#606060</color>
+    <!-- 导航条颜色 -->
+    <color name="light_gray">#C3C3C3</color>
+    <color name="reply_gray">#787878</color>
+    <color name="short_line_bg">#E3E3E3</color>
+    <color name="spotlight_gray">#E1E1E1</color>
+
+    <!-- 首页签到背景 -->
+    <color name="qiandao_bg">#E77B7B</color>
+    <!-- 首页预定背景 -->
+    <color name="yuding_bg">#3166D3</color>
+    <!-- 首页拉霸背景 -->
+    <color name="laba_bg">#FFBA00</color>
+
+    <!-- 我的背景 -->
+    <color name="myself_bgcolor">#009CCB</color>
+    <!-- 推荐header color -->
+    <color name="recommend_header_color">#F7F7F7</color>
+
+    <!-- arlayout_selector -->
+    <color name="selector_gray_color">#F7F7F7</color>
+    <drawable name="white_drawable">#FFFFFF</drawable>
+    <drawable name="rubaise_drawable">#EFEFEF</drawable>
+    <drawable name="gray_drawable">#F7F7F7</drawable>
+    <color name="dialog_gray_color">#F7F7F7</color>
+    <drawable name="gray_dark_drawable">#E7E7E7</drawable>
+    <drawable name="transparent_white_drawable">#E6FFFFFF</drawable>
+    <drawable name="transparent_gray_drawable">#E6F7F7F7</drawable>
+    <drawable name="commonitem_spot_drawable">#C8F3FF</drawable>
+    <drawable name="transparent_drawable">#00000000</drawable>
+    <drawable name="transparent_10">#19000000</drawable>
+    <drawable name="gray_transparent_drawable">#20000000</drawable>
+    <drawable name="blue_drawable">#00B9EF</drawable>
+
+    <!-- storelist -->
+    <color name="storelist_title">#3C3C3C</color>
+    <color name="popup_type_bg">#FAFAFA</color>
+    <color name="woyaopeiwan_normal">#00B9EF</color>
+    <color name="woyaopeiwan_spotlight">#009CCB</color>
+    <color name="redcancel_spotlight">#9b0101</color>
+    <color name="redcancel_normal">#c40000</color>
+
+    <!-- 我要上班 -->
+    <color name="woyaoshangban_gray">#C3C3C3</color>
+    <color name="woyaoshangban_green">#28C41C</color>
+    <color name="pinglun_item_border_color">#CCCCCC</color>
+
+    <color name="youhuiquan_histroy">#eaeaea</color>
+    <color name="youhuiquan_drink">#f74b4b</color>
+    <color name="youhuiquan_chongzhi">#f5a623</color>
+    <color name="youhuiquan_peiwan">#00b9cf</color>
+
+    <color name="pull_refresh_text_color">#6C6C6C</color>
+
+    <!-- 背景色 -->
+    <color name="chat_friendship_notify_bg">#BE000000</color>
+    <color name="cancel_normal">#E5E5E5</color>
+    <color name="cancel_spotlight">#CFCFCF</color>
+    <color name="refresh_beijing">#F4F4F4</color>
+    <color name="beijing">#F8F8F8</color>
+    <drawable name="drawable_beijing">#F8F8F8</drawable>
+    <color name="fengexian">#E5E5E5</color>
+    <color name="godtag_color">#BDAD9E</color>
+    <color name="huise">#CCCCCC</color>
+    <drawable name="drawable_danhuise">#F1F1F1</drawable>
+    <color name="danhuise">#F1F1F1</color>
+    <color name="e5e5e5">#E5E5E5</color>
+    <color name="f2f2f2">#F2F2F2</color>
+    <color name="qianhuise">#C6C6C6</color>
+    <color name="input_qianhuise">#F0F1F5</color>
+    <color name="zhonghuise">#9B9B9B</color>
+    <color name="bawubawubawu">#858585</color>
+    <color name="qianzhonghuise">#B8B8B8</color>
+    <color name="shenhuise">#4A4A4A</color>
+    <color name="heise">#000000</color>
+    <color name="nan">#94C1FF</color>
+    <color name="nv">#F49AC1</color>
+    <color name="liaotianbeijing">#EBEBEB</color>
+    <color name="register_confirm_beijin">#BBFFFFFF</color>
+    <color name="light_gray_color">#B9B9B9</color>
+
+    <color name="image_bg">#CC000000</color>
+
+    <!-- 上传图片添加的颜色 -->
+    <color name="none_color">#00000000</color>
+    <color name="guide_transparent_background">#BB000000</color>
+
+    <!-- 订阅 -->
+    <color name="subscribe_dianjitianjia">#9C999D</color>
+    <color name="subscribe_item_textcolor">#787777</color>
+
+
+    <color name="color_coupon_hightlight">#FF7093</color>
+
+    <color name="grayOrder">#505050</color>
+    <color name="colorGay">#d3d3d3</color>
+
+    <color name="transprant_black">#66000000</color>
+    <color name="transprant_black_88">#88000000</color>
+    <color name="transprant_black_aa">#aa000000</color>
+    <color name="transprant_black_33">#33000000</color>
+    <color name="transprant_white_33">#33FFFFFF</color>
+
+    <color name="cdbe9f">#CDBE9F</color>
+
+    <color name="blue_guide_text">#0bbaf4</color>
+    <color name="blue_next_step_nor">#ecf9fd</color>
+    <color name="blue_next_step_pressed">#bddefa</color>
+
+    <color name="black_2f">#2f2f2f</color>
+    <color name="black_6b">#6b6b6b</color>
+    <color name="gray_7f">#7f6b6b6b</color>
+    <color name="gray_f5">#f5f5f5</color>
+    <color name="blue_name">#006AAC</color>
+
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="red_unit_price">#ff6262</color>
+    <color name="yellow_god_type">#eed7ca</color>
+    <color name="load_more_text">#a8a7a7</color>
+    <color name="seat_occupied">#7fF8F8F8</color>
+    <color name="deadline">#ff7f7e</color>
+
+    <color name="btn_blur_nomal">#44ffffff</color>
+    <color name="btn_blur_pressed">#22ffffff</color>
+
+    <color name="light_blue">#77d6ef</color>
+    <color name="gray_f6">#F6F6F6</color>
+    <color name="light_gray_tran_60">#99B3B3B3</color>
+    <color name="audio_chat_room_tab_text_color">#747474</color>
+
+    <color name="gray_f9">#f9f9f9</color>
+    <color name="black_21">#dd151515</color>
+    <color name="green_4fe4c1">#4fe4c1</color>
+    <color name="green_light">#aa4fe4c1</color>
+    <color name="blue_009cdc">#009cdc</color>
+    <color name="blue_00bbee">#00bbee</color>
+    <color name="transparent_white_80">#CCFFFFFF</color>
+
+    <color name="chat_dashang">#FF4F4F</color>
+    <color name="chat_star">#FFD200</color>
+    <color name="live_dashang_name">#3F444B</color>
+    <color name="live_dashang_content">#FF4F4F</color>
+
+    <color name="blue_gray">#80dcf7</color>
+    <color name="brown">#CA9362</color>
+
+</resources>

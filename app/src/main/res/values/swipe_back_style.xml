@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SwipeBackActivityAnimation">
+        <item name="android:activityOpenEnterAnimation">@anim/swipe_in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/swipe_out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/swipe_in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/swipe_out_to_right</item>
+    </style>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="53dp"
+    android:background="@color/white" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/mTabIconImg"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:scaleType="centerInside"
+            />
+
+        <TextView
+            android:id="@+id/mTabInfoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/view_selector_tab"
+            android:textSize="@dimen/sp_9"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/mTabFlagIV"
+        android:layout_width="@dimen/margin_eight"
+        android:layout_height="@dimen/margin_eight"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_fifteen"
+        android:layout_marginTop="@dimen/margin_five"
+        android:src="@mipmap/notification_round"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/mTabCountTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_ten"
+        android:layout_marginTop="@dimen/margin_three"
+        android:background="@mipmap/notify_count_bg"
+        android:gravity="center"
+        android:maxHeight="@dimen/min_notify_count_width"
+        android:minHeight="@dimen/min_notify_count_width"
+        android:minWidth="@dimen/min_notify_count_width"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</RelativeLayout>
