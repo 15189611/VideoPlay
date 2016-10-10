@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
 
     @Override
     protected void getRemoteData() {
-        VideoNetWork.getToken();
+
     }
 
     @Override

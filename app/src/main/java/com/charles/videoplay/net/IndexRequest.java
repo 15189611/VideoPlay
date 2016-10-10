@@ -1,6 +1,5 @@
 package com.charles.videoplay.net;
 
-import android.util.Log;
 
 import com.charles.videoplay.http.AppException;
 import com.charles.videoplay.listener.ResponseListener;
@@ -27,10 +26,7 @@ public class IndexRequest {
 
         Map<String, Object> map = new HashMap<>();
         map.put(Constant.UID,"0");
-        for (String key : map.keySet()) {
-            Log.i("doGet","key= "+ key + " and value= " + map.get(key));
-        }
-         Logger.i("url==" +url);
+
         StringBuilder sb = null;
         if (map != null) {
             sb = new StringBuilder(url);
@@ -62,7 +58,6 @@ public class IndexRequest {
                     @Override
                     public void onResponse(String response) {
                         if(listener != null){
-
                             Logger.i("成功=="+response);
                             listener.onSuccess(response);
                         }

@@ -10,26 +10,13 @@ import com.charles.videoplay.util.JsonUtil;
 import com.charles.videoplay.util.Logger;
 import com.charles.videoplay.util.MD5Util;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.kingnet.KYVideo.okhttp.OkHttpUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.Reader;
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * Created by Charles on 2016/10/10.

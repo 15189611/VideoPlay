@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@android:color/transparent">
+
+    <ImageView
+        android:id="@+id/ptr_classic_header_rotate_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/pull_refresh_xlistview_arrow" />
+
+    <ProgressBar
+        android:id="@+id/ptr_classic_header_rotate_view_progressbar"
+        style="@style/BlueProgressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDuration="700"
+        android:visibility="gone" />
+
+</RelativeLayout>

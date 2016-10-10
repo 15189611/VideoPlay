@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Charles on 2016/10/10.
  */
 
-public class DataHomeVideoType  implements Serializable {
+public class VideoType implements Serializable {
 
     private static final long serialVersionUID = 7687816343337235782L;
 

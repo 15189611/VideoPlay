@@ -8,12 +8,12 @@ import java.util.List;
  * Created by Charles on 2016/10/10.
  */
 
-public class ResponseVideoType implements Serializable {
+public class IndexVideoList implements Serializable {
     private static final long serialVersionUID = -1353850465936313952L;
 
     private int errcode;
 
-    private List<DataHomeVideoType> data;
+    private List<VideoType> data;
 
     public int getErrcode() {
         return errcode;
@@ -24,11 +24,12 @@ public class ResponseVideoType implements Serializable {
     }
 
 
-    public List<DataHomeVideoType> getData() {
+    public List<VideoType> getData() {
         return data;
     }
 
-    public void setData(List<DataHomeVideoType> data) {
+    public void setData(List<VideoType> data) {
         this.data = data;
     }
+
 }

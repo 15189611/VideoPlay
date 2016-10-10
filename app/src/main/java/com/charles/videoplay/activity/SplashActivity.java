@@ -5,6 +5,8 @@ import android.content.Intent;
 
 import com.charles.videoplay.R;
 import com.charles.videoplay.base.BaseActivity;
+import com.charles.videoplay.net.VideoNetWork;
+
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -27,7 +29,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        VideoNetWork.getToken();
     }
 
     @Override

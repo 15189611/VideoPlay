@@ -260,4 +260,38 @@
     <color name="blue_gray">#80dcf7</color>
     <color name="brown">#CA9362</color>
 
+    <!-- 蓝色字体 -->
+    <!-- 首页中办工作类型、我的收藏、我的支付、提交订单中的输入框中的字体颜色 -->
+    <color name="CommonColor_Blue">#1562af</color>
+    <color name="CommonColor_LightBlue">#7FBBBF</color>
+    <!-- 首页底部背景色 -->
+    <color name="CommonColor_BottomBG">#e7eaee</color>
+
+    <!-- 常见的黑色字体 -->
+    <color name="CommonColor_Black">#010c17</color>
+    <!-- 常见的灰色字体 -->
+    <color name="CommonColor_Gray">#7a7b7c</color>
+    <!-- 橘红色字体 -->
+    <color name="CommonColor_Orange">#f7bb03</color>
+    <color name="CommonColor_Red">#ff0000</color>
+    <color name="CommonColor_White">#FFFFFF</color>
+    <!-- 登录页面字体颜色 -->
+    <color name="Login_PlaceHolder_FontColor">#bad8ed</color>
+    <!-- 登录页面字体颜色 -->
+    <color name="Login_Btn_FontColor">#1d70ca</color>
+    <!-- 快速注册、忘记密码 -->
+    <color name="Login_RegisterBtn_FontColor">#4efcf2</color>
+    <!-- 空间类型 -->
+    <color name="SpaceType_FontColor">#4abcae</color>
+    <color name="SpaceAlert_Green_FontColor">#4abcae</color>
+    <color name="SpaceAlert_Gray_BGColor">#d8ddde</color>
+    <color name="SpaceType_Tab_FontColor">#25efa4</color>
+    <!-- 支付 -->
+    <!-- 未支付按钮字体颜色 -->
+    <color name="Unpay_Btn_FontColor">#be7f06</color>
+    <color name="Pay_Btn_FontColor">#7a7b7c</color>
+
+    <!-- 评论日期的灰色字体 -->
+    <color name="CommonColor_LightGray">#aaabad</color>
+    <color name="recommendedVedioTypeAll">#999999</color>
 </resources>
