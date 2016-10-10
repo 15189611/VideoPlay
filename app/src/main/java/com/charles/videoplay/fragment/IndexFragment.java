@@ -14,9 +14,20 @@ import android.view.ViewGroup;
 import com.charles.videoplay.R;
 import com.charles.videoplay.activity.MainActivity;
 import com.charles.videoplay.base.BaseActivity;
+import com.charles.videoplay.base.BaseFragment;
+import com.charles.videoplay.entity.DataHomeVideoType;
+import com.charles.videoplay.entity.ResponseVideoType;
+import com.charles.videoplay.http.AppException;
+import com.charles.videoplay.listener.ResponseListener;
+import com.charles.videoplay.net.IndexRequest;
+import com.charles.videoplay.util.JsonUtil;
+import com.charles.videoplay.util.Logger;
 import com.charles.videoplay.widget.NoScrollViewPager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +39,7 @@ import butterknife.ButterKnife;
  * Created by Charles on 2016/10/9.
  */
 
-public class IndexFragment extends Fragment {
+public class IndexFragment extends BaseFragment {
     private static final String TAG = IndexFragment.class.getName();
 
     @Bind(R.id.tl_layout)
@@ -41,6 +52,7 @@ public class IndexFragment extends Fragment {
     private IndexPagerAdapter adapter;
     private List<Fragment> fragmentList ;
     private List<String> tabDatas = Arrays.asList("精选","美女","娱乐","涨姿势","配音","体育","动画","可爱","游戏");
+    private ResponseVideoType dataHomeVideoType;
 
     @Nullable
     @Override
@@ -70,13 +82,42 @@ public class IndexFragment extends Fragment {
             mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         }
         for (int i = 0 ;i < tabs.size() ;i ++){
-            fragmentList.add(TabFragments.newInstance("我的标题"+i));
+            if(i == 0){
+                fragmentList.add(SelectedFragment.newInstance());
+            }else{
+                fragmentList.add(TabFragments.newInstance(tabDatas.get(i)));
+            }
         }
         adapter = new IndexPagerAdapter(getChildFragmentManager(),fragmentList,tabs);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(viewPager);
 
+    }
+
+    @Override
+    protected void fetchObjectData() {
+        try {
+            IndexRequest.getHomeVideoTypes(new ResponseListener<String>() {
+                                               @Override
+                                               public void onSuccess(String s) {
+                                                   Gson gson = new Gson();
+                                                   ResponseVideoType videoType = gson.fromJson(s, ResponseVideoType.class);
+                                                   if(videoType.getData() != null){
+                                                       Logger.i(videoType.getData().get(1).getName());
+                                                   }
+                                               }
+
+                                               @Override
+                                               public void onFailure(AppException e) {
+
+                                               }
+                                           }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private class IndexPagerAdapter extends FragmentStatePagerAdapter{

@@ -28,7 +28,7 @@ public abstract class BaseActivity extends SwipeBackBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setBackEnable(true);
+        initSwipeBack();
         setContentView(getLayoutResId());
         ButterKnife.bind(this);
         initToolbar();
@@ -83,6 +83,18 @@ public abstract class BaseActivity extends SwipeBackBaseActivity {
 
     protected boolean enableToolbar() {
         return true;
+    }
+
+    private void initSwipeBack() {
+        if (!enableSwipeBack()) {
+            setBackEnable(enableSwipeBack());
+        }else{
+            setBackEnable(enableSwipeBack());
+        }
+    }
+
+    public boolean enableSwipeBack() {
+        return false;
     }
 
     @Override

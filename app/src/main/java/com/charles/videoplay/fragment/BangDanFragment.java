@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.charles.videoplay.base.BaseFragment;
+
 /**
  * Created by Administrator on 2016/10/9.
  */
 
-public class BangDanFragment extends Fragment{
+public class BangDanFragment extends BaseFragment {
 
     private static final String TAG = BangDanFragment.class.getName();
 
@@ -29,5 +31,10 @@ public class BangDanFragment extends Fragment{
         Bundle bundle = new Bundle();
         bangDanFragment.setArguments(bundle);
         return bangDanFragment;
+    }
+
+    @Override
+    protected void fetchObjectData() {
+
     }
 }

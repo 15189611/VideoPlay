@@ -8,13 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.charles.videoplay.base.BaseFragment;
+import com.charles.videoplay.util.Logger;
+
 import org.w3c.dom.Text;
 
 /**
  * Created by Charles on 2016/10/9.
  */
 
-public class TabFragments extends Fragment {
+public class TabFragments extends BaseFragment {
 
     private String title;
 
@@ -44,4 +47,8 @@ public class TabFragments extends Fragment {
         return tabFragments;
     }
 
+    @Override
+    protected void fetchObjectData() {
+        Logger.i("可见"+title);
+    }
 }

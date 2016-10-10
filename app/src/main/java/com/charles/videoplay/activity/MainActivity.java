@@ -13,6 +13,8 @@ import com.charles.videoplay.fragment.BangDanFragment;
 import com.charles.videoplay.fragment.IndexFragment;
 import com.charles.videoplay.fragment.LoveFragment;
 import com.charles.videoplay.fragment.MineFragment;
+import com.charles.videoplay.http.VideoPlayRequest;
+import com.charles.videoplay.net.VideoNetWork;
 import com.charles.videoplay.ui.Tab;
 import com.charles.videoplay.ui.TabIndicator;
 import com.charles.videoplay.widget.NoScrollViewPager;
@@ -98,7 +100,12 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
 
     @Override
     protected void getRemoteData() {
+        VideoNetWork.getToken();
+    }
 
+    @Override
+    public boolean enableSwipeBack() {
+        return false;
     }
 
     @Override

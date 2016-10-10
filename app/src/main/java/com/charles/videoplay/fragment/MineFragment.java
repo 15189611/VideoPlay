@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.charles.videoplay.base.BaseFragment;
+
 /**
  * Created by Charles on 2016/10/9.
  */
 
-public class MineFragment extends Fragment {
+public class MineFragment extends BaseFragment {
 
     private static final String TAG = MineFragment.class.getName();
 
@@ -29,5 +31,10 @@ public class MineFragment extends Fragment {
         Bundle bundle = new Bundle();
         mineFragment.setArguments(bundle);
         return mineFragment;
+    }
+
+    @Override
+    protected void fetchObjectData() {
+
     }
 }
