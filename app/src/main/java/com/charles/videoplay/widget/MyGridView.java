@@ -21,10 +21,16 @@ public class MyGridView extends GridView {
     public MyGridView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-  /*  @Override
+
+    @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
                 MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, expandSpec);
-    }*/
+    }
+
+    @Override
+    public int getNumColumns() {
+        return 2;
+    }
 }

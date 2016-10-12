@@ -7,36 +7,37 @@
     android:orientation="vertical">
 
     <!-- 视频缩列图 -->
-    <com.charles.videoplay.widget.MyRelativeLayout
+   <com.charles.videoplay.widget.MyRelativeLayout
         android:id="@+id/rlVedioBg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:background="@mipmap/vedio_default_background"
         android:focusable="false">
 
-     <ImageView
+    <ImageView
             android:id="@+id/ivVideoBg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:src="@mipmap/video_item_on_bg" />
+       <ImageView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"
+           android:src="@mipmap/video_item_on_bg" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:scaleType="fitXY"
-            android:src="@mipmap/video_item_up_bg" />
+       <ImageView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:scaleType="fitXY"
+           android:src="@mipmap/video_item_up_bg" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:orientation="horizontal"
             android:gravity="center_vertical">
 
             <ImageView
@@ -54,24 +55,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:focusable="false"
+                android:text="用户昵称"
                 android:maxLength="7"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
-        </LinearLayout>
 
-        <!-- 视频喜欢次数 -->
-        <TextView
-            android:id="@+id/tvFavorCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:drawablePadding="5dp"
-            android:focusable="false"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+        </LinearLayout>
 
         <!-- 视频播放次数 -->
         <TextView
@@ -83,6 +72,7 @@
             android:focusable="false"
             android:gravity="center_vertical"
             android:padding="10dp"
+            android:text="播放必输"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
@@ -101,4 +91,5 @@
         android:padding="10dp"
         android:textColor="#333333"
         android:textSize="12sp" />
+
 </LinearLayout>

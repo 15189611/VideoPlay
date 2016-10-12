@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
+
+import com.charles.videoplay.util.Screen;
 import com.kingnet.KYVideo.okhttp.OkHttpUtils;
 import com.kingnet.KYVideo.okhttp.log.LoggerInterceptor;
 
@@ -29,6 +31,7 @@ public class VideoPlayApplication extends Application {
         application = this;
         context = application.getApplicationContext();
         initOkhttp();
+        Screen.initScreen(getApplicationContext());
     }
 
     private  void initOkhttp(){

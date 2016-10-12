@@ -44,17 +44,22 @@
             android:textSize="17sp" />
     </RelativeLayout>
 
-    <!-- 视频类型列表 -->
-    <com.charles.videoplay.widget.MyGridView
+    <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/selection_title"
         android:id="@+id/gvVideoTypes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:cacheColorHint="@color/black"
         android:horizontalSpacing="2dp"
         android:listSelector="@color/transparent"
-        android:numColumns="2"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/fengexian"
+        />
 
 </RelativeLayout>

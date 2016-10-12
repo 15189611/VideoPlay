@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:cacheColorHint="#00000000"
-        android:divider="@mipmap/vedio_line"
         android:fadingEdge="none"/>
 
 </RelativeLayout>
