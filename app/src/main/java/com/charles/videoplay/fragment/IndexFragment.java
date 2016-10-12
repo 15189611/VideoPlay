@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,6 @@ public class IndexFragment extends BaseFragment {
         mTabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         adapter = new IndexPagerAdapter(getChildFragmentManager(),fragmentList,tabs);
         viewPager.setCurrentItem(0);
-        viewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(viewPager);
     }
 
@@ -109,7 +109,7 @@ public class IndexFragment extends BaseFragment {
         if(videoTypes == null || videoTypes.size() == 0 ){
             return;
         }
-
+        viewPager.setOffscreenPageLimit(videoTypes.size()+1);
         tabs.clear();
         if(videoTypes.size() >=7){
             mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -123,14 +123,14 @@ public class IndexFragment extends BaseFragment {
                 fragmentList.add(SelectedFragment.newInstance(videoList));
             }else{
                 tabs.add(i,videoTypes.get(i-1).getName());
-                fragmentList.add(TabFragments.newInstance(videoTypes.get(i-1).getName()));
+                fragmentList.add(TabFragments.newInstance(videoTypes.get(i-1).getName(),videoTypes.get(i-1).getVtid()));
             }
         }
         viewPager.setAdapter(adapter);
     }
 
 
-    private class IndexPagerAdapter extends FragmentStatePagerAdapter{
+    private class IndexPagerAdapter extends FragmentPagerAdapter {
         private List<String> tabDatas;
         private List<Fragment> fragments;
 

@@ -71,4 +71,11 @@ public class VideoPlayApplication extends Application {
         TelephonyManager tm = (TelephonyManager) application.getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getDeviceId();
     }
+
+    public static Context getMyApplicationContext(){
+        if(context != null){
+            return context;
+        }
+        return null;
+    }
 }

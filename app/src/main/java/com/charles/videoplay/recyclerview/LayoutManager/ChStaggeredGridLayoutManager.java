@@ -17,6 +17,7 @@ public class ChStaggeredGridLayoutManager extends StaggeredGridLayoutManager {
 
     private OverScrollListener mListener;
 
+
     public ChStaggeredGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -28,8 +29,9 @@ public class ChStaggeredGridLayoutManager extends StaggeredGridLayoutManager {
     @Override
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
         int scrollRange = super.scrollVerticallyBy(dy, recycler, state);
-
-        mListener.overScrollBy(dy - scrollRange);
+        if(mListener != null){
+            mListener.overScrollBy(dy - scrollRange);
+        }
 
         return scrollRange;
     }

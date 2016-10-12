@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.charles.videoplay.VideoPlayApplication;
 import com.charles.videoplay.entity.UserToken;
+import com.charles.videoplay.sp.ShareUtils;
 import com.charles.videoplay.util.Constant;
 import com.charles.videoplay.util.JsonUtil;
 import com.charles.videoplay.util.Logger;
@@ -53,8 +54,14 @@ public class VideoNetWork {
 
                     @Override
                     public void onResponse(String response) {
+                        Logger.i("User=="+response);
                         Gson gson = new Gson();
                         UserToken userToken = gson.fromJson(response, UserToken.class);
+                        if(userToken.getErrcode() == 0){
+                            if(userToken.getData()== null) return;
+                            ShareUtils.saveUser(VideoPlayApplication.getMyApplicationContext(),userToken.getData());
+                        }
+
                         long currentTime  = new Date().getTime();
                         Constant.serverDifference = (currentTime/1000)-userToken.getTime();
                         Log.i("Charles", "相差时间=" +Constant.serverDifference  +"服务器时间=" +userToken.getTime() +"当前时间="+currentTime);

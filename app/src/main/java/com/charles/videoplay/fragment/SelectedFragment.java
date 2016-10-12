@@ -29,8 +29,6 @@ import com.charles.videoplay.recyclerview.View.PullRefreshRecycleView;
 import com.charles.videoplay.util.ImageLoadUtils;
 import com.charles.videoplay.util.JsonParser;
 import com.charles.videoplay.util.Logger;
-import com.charles.videoplay.widget.MyGridView;
-
 import java.util.ArrayList;
 import java.util.List;
 
