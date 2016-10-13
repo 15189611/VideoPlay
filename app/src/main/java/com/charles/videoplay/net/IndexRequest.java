@@ -73,7 +73,7 @@ public class IndexRequest {
     public static void getVideoListOfType(Context context, int page, int vTid, final ResponseListener<String> listener) throws Exception {
         String url = VideoNetWork.getOutRootUrl() + "GetVideoListOfType";
         LoginUserInfo user = ShareUtils.getUser(context);
-        int cnt = 10;
+        int cnt = 20;
         Map<String, Object> map = new HashMap<>();
         int fromCount;
         if (page != 0) {

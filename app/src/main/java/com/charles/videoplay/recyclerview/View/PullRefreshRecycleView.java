@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -76,8 +77,18 @@ public class PullRefreshRecycleView extends RecyclerView implements Runnable {
         dp1 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, context.getResources().getDisplayMetrics());
         headerImageMaxHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getContext().getResources().getDisplayMetrics());
         setOverScrollMode(OVER_SCROLL_NEVER);
-        post(this);
+        this.postDelayed(this,300);
+    }
 
+    private void getManager() {
+        LayoutManager manager = getLayoutManager();
+        if (manager instanceof ChLinearLayoutManager) {
+            ((ChLinearLayoutManager) manager).setOverScrollListener(mOverScrollListener);
+        }else if (manager instanceof ChGridLayoutManager) {
+            ((ChGridLayoutManager) manager).setOverScrollListener(mOverScrollListener);
+        } else if (manager instanceof ChStaggeredGridLayoutManager) {
+            ((ChStaggeredGridLayoutManager) manager).setOverScrollListener(mOverScrollListener);
+        }
     }
 
     @Override
@@ -93,14 +104,7 @@ public class PullRefreshRecycleView extends RecyclerView implements Runnable {
 
     @Override
     public void run() {
-        LayoutManager manager = getLayoutManager();
-        if (manager instanceof ChLinearLayoutManager) {
-            ((ChLinearLayoutManager) manager).setOverScrollListener(mOverScrollListener);
-        }else if (manager instanceof ChGridLayoutManager) {
-            ((ChGridLayoutManager) manager).setOverScrollListener(mOverScrollListener);
-        } else if (manager instanceof ChStaggeredGridLayoutManager) {
-            ((ChStaggeredGridLayoutManager) manager).setOverScrollListener(mOverScrollListener);
-        }
+        getManager();
     }
 
     public void setLoadDataListener(LoadDataListener listener) {
@@ -193,9 +197,9 @@ public class PullRefreshRecycleView extends RecyclerView implements Runnable {
         }
 
         if (loadMoreEnable) {
+           // mAdapter.addFooterView(LayoutInflater.from(mContext).inflate(R.layout.def_loading, this, false));
             mAdapter.setLoadingView(LayoutInflater.from(mContext).inflate(R.layout.def_loading, this, false));
         }
-
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {  //更多监听回调
             @Override
             public void onLoadMoreRequested() {

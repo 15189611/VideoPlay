@@ -17,7 +17,6 @@ public class ChStaggeredGridLayoutManager extends StaggeredGridLayoutManager {
 
     private OverScrollListener mListener;
 
-
     public ChStaggeredGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }

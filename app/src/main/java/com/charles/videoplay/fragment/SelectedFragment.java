@@ -154,7 +154,6 @@ public class SelectedFragment extends BaseFragment implements LoadDataListener {
 
     @Override
     protected void fetchObjectData() {
-        Logger.i("精选可见");
     }
 
     @Override

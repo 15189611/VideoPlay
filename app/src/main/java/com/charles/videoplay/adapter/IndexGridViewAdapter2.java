@@ -60,13 +60,6 @@ public class IndexGridViewAdapter2 extends BaseQuickAdapter<VideoTypeInfo>{
         ImageLoadUtils.setSimpleCircleHeadIcon(context, item.getUserHead(), R.mipmap.mine_default_head, ivHeadPortrait);
 
         tvUserNick.setText(item.getUserNick());
-        Drawable drawable;
-        if (item.getFavorFlag() == 1) {
-            drawable = context.getResources().getDrawable(R.mipmap.solid_heart);
-        } else {
-            drawable = context.getResources().getDrawable(R.mipmap.hollow);
-        }
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()); //设置边界
         tvPlayCount.setText(item.getPlayCount()+"次播放");
         tvComment.setText(item.getDes());
     }

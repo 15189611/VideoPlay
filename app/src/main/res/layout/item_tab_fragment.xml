@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="4dp"
+        android:layout_margin="4dp"
+        android:elevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds = "true"
+            android:scaleType="centerCrop" />
+
+            <ImageView
+                android:layout_below="@+id/ivImage"
+                android:id="@+id/ivUserPic"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="-4dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:focusable="false"
+                android:scaleType="fitXY"
+                android:src="@mipmap/mine_default_head" />
+
+            <TextView
+                android:id="@+id/tvUserNick"
+                android:layout_below="@+id/ivImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/ivUserPic"
+                android:focusable="false"
+                android:text="用户昵称"
+                android:maxLength="7"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_below="@+id/tvUserNick"
+                android:id="@+id/tvComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:gravity="center"
+                android:maxLines="2"
+                android:minLines="2"
+                android:padding="10dp"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
