@@ -1,4 +1,4 @@
-package com.charles.videoplay.net;
+package com.charles.videoplay.entity;
 
 import java.io.Serializable;
 

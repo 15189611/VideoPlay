@@ -27,4 +27,9 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="LoadingActivtyTheme" parent="@style/AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/bg_launch</item>
+    </style>
+
 </resources>

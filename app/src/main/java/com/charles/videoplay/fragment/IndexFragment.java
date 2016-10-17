@@ -22,11 +22,15 @@ import com.charles.videoplay.entity.IndexVideoList;
 import com.charles.videoplay.http.AppException;
 import com.charles.videoplay.listener.ResponseListener;
 import com.charles.videoplay.net.IndexRequest;
+import com.charles.videoplay.sp.ShareUtils;
+import com.charles.videoplay.util.Constant;
 import com.charles.videoplay.util.JsonParser;
 import com.charles.videoplay.util.Logger;
 import com.charles.videoplay.widget.NoScrollViewPager;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,12 +85,25 @@ public class IndexFragment extends BaseFragment {
 
     @Override
     protected void fetchObjectData() {
+        videoList = ShareUtils.getObject(getBaseActivity(), Constant.SAVE_INDEX_DATA_KEY, IndexVideoList.class);
+        if(videoList != null && videoList.getErrcode() == 0){
+            if (videoList.getData() != null) {
+                videoTypes = videoList.getData();
+                initTabs(videoTypes);
+            }
+        }else{
+            getData();
+        }
+    }
+
+    private void getData() {
         try {
             IndexRequest.getHomeVideoTypes(new ResponseListener<String>() {
                         @Override
                         public void onSuccess(String response) {
                             videoList = JsonParser.deserializeByJson(response, IndexVideoList.class);
-                            if(videoList.getErrcode() == 0){
+                            if(videoList != null && videoList.getErrcode() == 0){
+                                ShareUtils.saveObjecToString(getBaseActivity(), Constant.SAVE_INDEX_DATA_KEY,videoList);
                                 if (videoList.getData() != null) {
                                     videoTypes = videoList.getData();
                                     initTabs(videoTypes);
@@ -103,7 +120,6 @@ public class IndexFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
-
 
     private void initTabs(List<VideoType> videoTypes) {
         if(videoTypes == null || videoTypes.size() == 0 ){

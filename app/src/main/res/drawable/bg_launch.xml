@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+
+    <item>
+        <bitmap
+            android:gravity="fill"
+            android:src="@mipmap/bg_splash_loading" />
+    </item>
+
+    <item android:bottom="@dimen/margin_fifty">
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/image_splash_icon" />
+    </item>
+
+</layer-list>

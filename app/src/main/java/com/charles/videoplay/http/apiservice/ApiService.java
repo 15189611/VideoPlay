@@ -17,5 +17,5 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/index")
-    Observable<ResponseResult> requestData(@FieldMap Map<String, String> body);
+    Observable<ResponseResult>  requestData(@FieldMap Map<String, String> body);
 }

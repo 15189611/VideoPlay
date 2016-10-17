@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.charles.videoplay.VideoPlayApplication;
+import com.charles.videoplay.entity.RequestCookie;
 import com.charles.videoplay.entity.UserToken;
 import com.charles.videoplay.sp.ShareUtils;
 import com.charles.videoplay.util.Constant;

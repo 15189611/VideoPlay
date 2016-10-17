@@ -9,12 +9,27 @@ import com.charles.videoplay.util.JsonParser;
 import com.charles.videoplay.util.JsonUtil;
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 
 /**
  * Created by Charles on 2016/10/12.
  */
 
 public class ShareUtils {
+
+    public static SharedPreferences mPreference;
+
+    public static SharedPreferences getPreference(Context context) {
+        if (mPreference == null)
+            mPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        return mPreference;
+    }
+
+    private static SharedPreferences.Editor edit(Context context) {
+        return getPreference(context).edit();
+    }
+
     public static boolean save(Context context,String key, String value) {
         return edit(context).putString(key, value).commit();
     }
@@ -35,27 +50,26 @@ public class ShareUtils {
         return edit(context).remove(key).commit();
     }
 
-    public static SharedPreferences mPreference;
-    public static SharedPreferences getPreference(Context context) {
-        if (mPreference == null)
-            mPreference = PreferenceManager.getDefaultSharedPreferences(context);
-        return mPreference;
-    }
-
-    private static SharedPreferences.Editor edit(Context context) {
-        return getPreference(context).edit();
-    }
-
     // 通过键删除值
     public static void isValue(Context context,String name) {
         getPreference(context).edit().remove(name).commit();
     }
 
     public static void saveObjecToString(Context context,String key, Object value) {
-        String strJson = "";
-        Gson gson = new Gson();
-        strJson = gson.toJson(value);
-        save(context,key, strJson);
+        String result = null;
+        if (value != null) {
+            result = JsonUtil.toJson(value);
+        }
+        save(context,key, result);
+    }
+
+    public static  <T> T getObject(Context context,String key, Class<T> clz){
+        if(get(context,key) != null){
+            T t = JsonParser.deserializeByJson(ShareUtils.get(context, key).toString(), clz);
+            return  t;
+        }else{
+            return null;
+        }
     }
 
     public static Object get(Context context,String key) {

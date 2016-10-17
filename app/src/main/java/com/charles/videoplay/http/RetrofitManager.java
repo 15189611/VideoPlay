@@ -33,7 +33,7 @@ public class RetrofitManager {
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("base url")
+                .baseUrl("www.52doushi.com")
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

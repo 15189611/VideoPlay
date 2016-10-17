@@ -5,12 +5,12 @@ package com.charles.videoplay.util;
  */
 
 public class Constant {
-    /** 与服务器相差时间 */
-    public static long serverDifference;
+    /*****************************  Sp  *************************************************/
+    public static final String SAVE_INDEX_DATA_KEY = "indexData";
 
-    /** 用户ID */
+    /*****************************  User  *************************************************/
+    public static long serverDifference;  //与服务器相差时间
     public static final String UID = "uid";
-    /** 用户TOKEN */
-    public static final String TOKEN = "token";
+    public static final String TOKEN = "token";    //用户id & token
 
 }
