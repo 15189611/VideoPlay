@@ -4,9 +4,8 @@ package com.charles.videoplay.net;
 import android.content.Context;
 
 import com.charles.videoplay.entity.LoginUserInfo;
-import com.charles.videoplay.entity.VedioDetails;
 import com.charles.videoplay.http.AppException;
-import com.charles.videoplay.listener.ResponseListener;
+import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.sp.ShareUtils;
 import com.charles.videoplay.util.Constant;
 import com.charles.videoplay.util.Logger;
@@ -120,5 +119,6 @@ public class IndexRequest {
                     }
                 });
     }
+
 
 }

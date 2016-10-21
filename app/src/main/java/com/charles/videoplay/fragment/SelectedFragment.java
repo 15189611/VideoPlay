@@ -21,7 +21,7 @@ import com.charles.videoplay.entity.IndexVideoList;
 import com.charles.videoplay.entity.VideoType;
 import com.charles.videoplay.entity.VideoTypeInfo;
 import com.charles.videoplay.http.AppException;
-import com.charles.videoplay.listener.ResponseListener;
+import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.net.IndexRequest;
 import com.charles.videoplay.recyclerview.LayoutManager.ChLinearLayoutManager;
 import com.charles.videoplay.recyclerview.Listener.LoadDataListener;

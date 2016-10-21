@@ -6,14 +6,14 @@ import java.lang.reflect.Type;
 
 public class ResponseResult<T> {
 
-    public String code;
-    public String msg;
-    public T result;
+    public String errcode;
+    public T data;
+    public long time;
 
     public Object getResult(Class<?> clazz) throws AppException {
         Object object;
         try {
-            object = clazz.cast(result);
+            object = clazz.cast(data);
         } catch (Exception e) {
             throw new AppException(AppException.ExceptionStatus.ParseException, AppException.PARSE_ERROR);
         }
@@ -21,12 +21,12 @@ public class ResponseResult<T> {
     }
 
     public T getResult() {
-        if (result != null) {
-            return result;
+        if (data != null) {
+            return data;
         }
         return null;
     }
     public void setResult(String resultStr, Type type) throws AppException{
-        result = JsonParser.deserializeByJson(resultStr, type);
+        data = JsonParser.deserializeByJson(resultStr, type);
     }
 }

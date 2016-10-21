@@ -3,6 +3,7 @@ package com.charles.videoplay.http;
 
 import com.charles.videoplay.http.apiservice.ApiService;
 import com.charles.videoplay.http.interceptor.ClientInterceptor;
+import com.charles.videoplay.net.VideoNetWork;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,7 +34,7 @@ public class RetrofitManager {
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("www.52doushi.com")
+                .baseUrl(VideoNetWork.getOutRootUrl())
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

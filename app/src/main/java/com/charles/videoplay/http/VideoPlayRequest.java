@@ -161,7 +161,7 @@ public class VideoPlayRequest implements IHttpRequest {
                 .subscribe(subscriber);
     }
 
-    private class ResponseResultFunc<T> implements Func1<ResponseResult<T>, T> {
+    public class ResponseResultFunc<T> implements Func1<ResponseResult<T>, T> {
         private Type type;
 
         ResponseResultFunc(Type type) {
@@ -171,16 +171,16 @@ public class VideoPlayRequest implements IHttpRequest {
         @Override
         public T call(ResponseResult responseResult) {
             if (responseResult != null) {
-                if (responseResult.result != null) {
-                    throw new AppException(responseResult.code, responseResult.msg, responseResult.result);
+                if (responseResult.data != null) {
+                    throw new AppException(responseResult.errcode, responseResult.errcode, responseResult.data);
                 } else {
-                    throw new AppException(responseResult.code, responseResult.msg);
+                    throw new AppException(responseResult.errcode, responseResult.errcode);
                 }
             } else if (responseResult == null) {
                 throw new AppException(AppException.ExceptionStatus.ResultException, AppException.RESULT_ERROR);
             }
 
-            return JsonParser.deserializeByJson(JsonParser.serializeToJson(responseResult.result), type); //将json字符串转成实体类
+            return JsonParser.deserializeByJson(JsonParser.serializeToJson(responseResult.data), type); //将json字符串转成实体类
         }
     }
 
@@ -208,7 +208,7 @@ public class VideoPlayRequest implements IHttpRequest {
     public class ResponseFunc2<T> implements Func1<ResponseResult<T>, T> {
         @Override
         public T call(ResponseResult<T> responseResult) {
-            return responseResult.result;
+            return responseResult.data;
         }
     }
 

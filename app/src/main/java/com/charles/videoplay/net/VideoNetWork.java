@@ -41,6 +41,7 @@ public class VideoNetWork {
         map.put("myuid", 0);
         map.put("token","");
         String params = JsonUtil.toJson(map);
+        Log.i("Charles2","好的=="+params  +" url==" +uploadCarch);
 
         OkHttpUtils
                 .postString()

@@ -17,7 +17,7 @@ import com.charles.videoplay.base.BaseFragment;
 import com.charles.videoplay.entity.VedioDetails;
 import com.charles.videoplay.entity.VideoDetailsList;
 import com.charles.videoplay.http.AppException;
-import com.charles.videoplay.listener.ResponseListener;
+import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.net.IndexRequest;
 import com.charles.videoplay.recyclerview.LayoutManager.ChStaggeredGridLayoutManager;
 import com.charles.videoplay.recyclerview.Listener.LoadDataListener;

@@ -1,6 +1,7 @@
 package com.charles.videoplay.http.subscribers;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.charles.videoplay.BuildConfig;
 import com.charles.videoplay.http.AppException;
@@ -62,7 +63,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
             mResponseListener.onFailure(appException);
         }
-
+        Log.i("Charles2", e.toString());
         if (BuildConfig.DEBUG && e != null){
             Logger.i("request" + " >>>> " + mRequestMethod);
             Logger.i(JsonUtil.toJson(e));
