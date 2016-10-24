@@ -3,6 +3,7 @@ package com.charles.videoplay.http;
 import android.app.Activity;
 
 
+import com.charles.videoplay.http.apiservice.ApiService;
 import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.http.subscribers.BaseSubscriber;
 import com.charles.videoplay.http.subscribers.ProgressResponseSubscriber;
@@ -23,7 +24,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Charles on 2016-05-12 22:13.
  */
-public class VideoPlayRequest implements IHttpRequest {
+public class VideoPlayRequest {
 
     private static final ConcurrentHashMap<Object, Map<String, Subscriber<?>>> mSubscriberMap = new ConcurrentHashMap<>();
 
@@ -76,57 +77,40 @@ public class VideoPlayRequest implements IHttpRequest {
             }
         }
     }
-
-    /**
-     * 外部使用
-     */
-    @Override
-    public <T> void requestDataWithActivity(Activity activity, String requestMethod, Map<String, String> params, final Type type, final ResponseListener<T> listener) {
-        toSubscribeWithActivity(activity, requestMethod, params, type, listener);
-    }
-
-    @Override
-    public <T> void requestDataWithDialog(Activity activity, String requestMethod, Map<String, String> params, final Type type, final ResponseListener<T> listener) {
-        toSubscribeWithDialog(activity, requestMethod, params, type, listener);
-    }
-
-    @Override
-    public <T> void requestData(String requestMethod, Map<String, String> params, final Type type, final ResponseListener<T> listener) {
-        toSubscribe(requestMethod, params, type, listener);
-    }
-
-    /**
-     * 私有实现
-     */
-
-    private <T> void toSubscribeWithActivity(Activity activity, String requestMethod, Map<String, String> params, final Type type, final ResponseListener<T> listener) {
+    @SuppressWarnings("unchecked")
+    public <T> void requestPostWithActivity(Activity activity ,String requestMethod,Map<String, Object> map,Type type ,ResponseListener<T> listener){
         if (activity != null && BussinessUtil.isValid(requestMethod)) {
             cancelRequest(activity, requestMethod);
         }
+        Subscriber<T> subscriber = new BaseSubscriber<>(activity,requestMethod,listener);
 
-        Subscriber<T> subscriber = new BaseSubscriber<>(activity, requestMethod, listener);
-
-        toSubscribe(params, type, subscriber);
+        ApiService apiService = RetrofitManager.getInstance().getApiService();
+        apiService
+                .getPostData(requestMethod,map)
+                .map(new ResponseResultFunc(type))
+                .compose(requestScheduler())
+                .subscribe(subscriber);
 
         addSubscribe(activity, requestMethod, subscriber);
     }
 
-    private <T> void toSubscribeWithDialog(Activity activity, String requestMethod, Map<String, String> params, final Type type, final ResponseListener<T> listener) {
-        if (activity == null || activity.isFinishing()) {
-            toSubscribe(requestMethod, params, type, listener);
-            return;
-        }
-
-        if (BussinessUtil.isValid(requestMethod)) {
+    @SuppressWarnings("unchecked")
+    public <T> void requestGetWithActivity(Activity activity ,String requestMethod,Map<String, Object> map,Type type ,ResponseListener<T> listener){
+        if (activity != null && BussinessUtil.isValid(requestMethod)) {
             cancelRequest(activity, requestMethod);
         }
+        Subscriber<T> subscriber = new BaseSubscriber<>(activity,requestMethod,listener);
 
-        Subscriber<T> subscriber = new ProgressResponseSubscriber<>(activity, requestMethod, listener);
-
-        toSubscribe(params, type, subscriber);
+        ApiService apiService = RetrofitManager.getInstance().getApiService();
+        apiService
+                .getWithGetData(requestMethod,map)
+                .map(new ResponseResultFunc(type))
+                .compose(requestScheduler())
+                .subscribe(subscriber);
 
         addSubscribe(activity, requestMethod, subscriber);
     }
+
 
     private <T> void addSubscribe(Activity activity, String requestMethod, Subscriber<T> subscriber) {
         if (activity != null && BussinessUtil.isValid(requestMethod)) {
@@ -140,51 +124,31 @@ public class VideoPlayRequest implements IHttpRequest {
         }
     }
 
-    private <T> void toSubscribe(String requestMethod, Map<String, String> params, final Type type, final ResponseListener<T> listener) {
-        Subscriber<T> subscriber = new BaseSubscriber<>(requestMethod, listener);
 
-        toSubscribe(params, type, subscriber);
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> void toSubscribe(Map<String, String> params, Type type, Subscriber<T> subscriber) {
-        RetrofitManager.getInstance().getApiService().requestData(params)
-                .map(new ResponseResultFunc(type))
-                .compose(requestScheduler())
-                .subscribe(subscriber);
-    }
-
-    protected <T> void toSubscribe(final Observable<T> observable, final ResponseListener<T> listener) {
-        Subscriber<T> subscriber = new BaseSubscriber<>(listener);
-
-        observable.compose(this.<T>requestScheduler())
-                .subscribe(subscriber);
-    }
 
     public class ResponseResultFunc<T> implements Func1<ResponseResult<T>, T> {
         private Type type;
 
-        ResponseResultFunc(Type type) {
+        public ResponseResultFunc(Type type) {
             this.type = type;
         }
 
         @Override
         public T call(ResponseResult responseResult) {
-            if (responseResult != null) {
-                if (responseResult.data != null) {
-                    throw new AppException(responseResult.errcode, responseResult.errcode, responseResult.data);
-                } else {
-                    throw new AppException(responseResult.errcode, responseResult.errcode);
-                }
-            } else if (responseResult == null) {
+            if(responseResult == null){
                 throw new AppException(AppException.ExceptionStatus.ResultException, AppException.RESULT_ERROR);
+            }else{
+                if (responseResult.data != null) {
+                    return JsonParser.deserializeByJson(JsonParser.serializeToJson(responseResult.data), type); //将json字符串转成实体类
+                }else{
+                    return null;
+                }
             }
 
-            return JsonParser.deserializeByJson(JsonParser.serializeToJson(responseResult.data), type); //将json字符串转成实体类
         }
     }
 
-    private <T> Observable.Transformer<T, T> requestScheduler() {
+    public  <T> Observable.Transformer<T, T> requestScheduler() {
         return new Observable.Transformer<T, T>() {
             @Override
             public Observable<T> call(Observable<T> observable) {

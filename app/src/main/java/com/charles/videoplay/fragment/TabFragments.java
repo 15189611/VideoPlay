@@ -17,6 +17,7 @@ import com.charles.videoplay.base.BaseFragment;
 import com.charles.videoplay.entity.VedioDetails;
 import com.charles.videoplay.entity.VideoDetailsList;
 import com.charles.videoplay.http.AppException;
+import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.net.IndexRequest;
 import com.charles.videoplay.recyclerview.LayoutManager.ChStaggeredGridLayoutManager;
@@ -78,19 +79,13 @@ public class TabFragments extends BaseFragment implements LoadDataListener {
     @Override
     public void onRefresh() {
         mPage = 0;
-        try {
-            initDataVideos(mPage);
-        } catch (Exception e) {
-        }
+        initDataVideos(mPage);
     }
 
     @Override
     public void onLoadMore() {
         mPage = mPage + 1 ;
-        try {
-            initDataVideos(mPage);
-        } catch (Exception e) {
-        }
+        initDataVideos(mPage);
     }
 
     @Override
@@ -103,31 +98,11 @@ public class TabFragments extends BaseFragment implements LoadDataListener {
         }, 200);
     }
 
-    private void initDataVideos(final int page) throws Exception {
-        IndexRequest.getVideoListOfType(getBaseActivity(), page, vid, new ResponseListener<String>() {
+    private void initDataVideos(final int page) {
+        UserRequest.newInstance().getVideoListOfType(getBaseActivity(), "GetVideoListOfType", page, vid, new ResponseListener<List<VedioDetails>>() {
             @Override
-            public void onSuccess(String s) {
-                recycleView.refreshComplete();
-                if(page > 0){
-                    recycleView.loadMoreComplete();
-                }
-                VideoDetailsList vedioDetails = JsonParser.deserializeByJson(s, VideoDetailsList.class);
-                if (vedioDetails.getErrcode() == 0) {
-                    List<VedioDetails> datas = vedioDetails.getData();
-                    if(datas != null && datas.size() > 0 ){
-                        if(mPage == 0){
-                            mDatas.clear();
-                        }
-                        mDatas.addAll(datas);
-                        adapter.notifyItemRangeRemoved(mDatas.size(),mDatas.size()+datas.size());
-                    }else {
-                        if (mPage == 0) {
-                            datas.clear();
-                            adapter.notifyDataSetChanged();
-                        }
-                        recycleView.setLoadMoreEnable(false);
-                    }
-                }
+            public void onSuccess(List<VedioDetails> vedioDetailses) {
+                getVideoDetailsSuccess(page,vedioDetailses);
             }
 
             @Override
@@ -136,6 +111,27 @@ public class TabFragments extends BaseFragment implements LoadDataListener {
                 recycleView.loadMoreComplete();
             }
         });
+    }
+
+    private void getVideoDetailsSuccess(int page ,List<VedioDetails> vedioDetailses) {
+        recycleView.refreshComplete();
+        if(page > 0){
+            recycleView.loadMoreComplete();
+        }
+
+        if(vedioDetailses != null && vedioDetailses.size() > 0 ){
+            if(mPage == 0){
+                mDatas.clear();
+            }
+            mDatas.addAll(vedioDetailses);
+            adapter.notifyItemRangeRemoved(mDatas.size(),mDatas.size()+vedioDetailses.size());
+        }else {
+            if (mPage == 0) {
+                vedioDetailses.clear();
+                adapter.notifyDataSetChanged();
+            }
+            recycleView.setLoadMoreEnable(false);
+        }
     }
 
     public static TabFragments newInstance(String title , int vid)

@@ -22,6 +22,15 @@ public class RequestCookie implements Serializable {
     private String osver; //	string	操作系统版本，如8.0.0
     private String mid; //	string	设备id
     private String sum; //	string	MD5校验值
+    private String net;
+
+    public String getNet() {
+        return net;
+    }
+
+    public void setNet(String net) {
+        this.net = net;
+    }
 
     public int getCid() {
         return cid;

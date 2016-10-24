@@ -2,6 +2,7 @@ package com.charles.videoplay.net;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.charles.videoplay.entity.LoginUserInfo;
 import com.charles.videoplay.http.AppException;
@@ -97,6 +98,7 @@ public class IndexRequest {
             }
             url = sb.substring(0, sb.length() - 1).toString();
         }
+        Log.i("Charles2", "正式的url==" +url);
         OkHttpUtils
                 .get()
                 .url(url)

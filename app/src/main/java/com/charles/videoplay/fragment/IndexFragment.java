@@ -7,23 +7,27 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.charles.videoplay.R;
 import com.charles.videoplay.activity.MainActivity;
+import com.charles.videoplay.activity.SplashActivity;
 import com.charles.videoplay.base.BaseActivity;
 import com.charles.videoplay.base.BaseFragment;
 import com.charles.videoplay.entity.VideoType;
 import com.charles.videoplay.entity.VideoTypeInfo;
 import com.charles.videoplay.entity.IndexVideoList;
 import com.charles.videoplay.http.AppException;
+import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.net.IndexRequest;
 import com.charles.videoplay.sp.ShareUtils;
 import com.charles.videoplay.util.Constant;
 import com.charles.videoplay.util.JsonParser;
+import com.charles.videoplay.util.JsonUtil;
 import com.charles.videoplay.util.Logger;
 import com.charles.videoplay.widget.NoScrollViewPager;
 import com.google.gson.Gson;
@@ -54,7 +58,6 @@ public class IndexFragment extends BaseFragment {
     private IndexPagerAdapter adapter;
     private List<Fragment> fragmentList ;
 
-    private IndexVideoList videoList;
     private List<VideoType> videoTypes;
     private List<String> tabs ;
 
@@ -84,40 +87,31 @@ public class IndexFragment extends BaseFragment {
 
     @Override
     protected void fetchObjectData() {
-        videoList = ShareUtils.getObject(getBaseActivity(), Constant.SAVE_INDEX_DATA_KEY, IndexVideoList.class);
-        if(videoList != null && videoList.getErrcode() == 0){
-            if (videoList.getData() != null) {
-                videoTypes = videoList.getData();
-                initTabs(videoTypes);
-            }
+        Type type = new TypeToken<List<VideoType>>() {
+        }.getType();
+        String data = (String) ShareUtils.get(getBaseActivity(), Constant.SAVE_INDEX_DATA_KEY);
+        videoTypes = JsonUtil.toObjectT(data, type);
+
+        if(videoTypes != null && videoTypes.size() > 0){
+             initTabs(videoTypes);
         }else{
             getData();
         }
     }
 
     private void getData() {
-        try {
-            IndexRequest.getHomeVideoTypes(new ResponseListener<String>() {
-                        @Override
-                        public void onSuccess(String response) {
-                            videoList = JsonParser.deserializeByJson(response, IndexVideoList.class);
-                            if(videoList != null && videoList.getErrcode() == 0){
-                                ShareUtils.saveObjecToString(getBaseActivity(), Constant.SAVE_INDEX_DATA_KEY,videoList);
-                                if (videoList.getData() != null) {
-                                    videoTypes = videoList.getData();
-                                    initTabs(videoTypes);
-                                }
-                            }
-                        }
+        UserRequest.newInstance().getIndexData(getBaseActivity(), "GetHomeVideoTypes", new ResponseListener<List<VideoType>>() {
+            @Override
+            public void onSuccess(List<VideoType> videoTypes) {
+                String json = JsonUtil.toJson(videoTypes);
+                ShareUtils.save(getBaseActivity(), Constant.SAVE_INDEX_DATA_KEY, json);
+                initTabs(videoTypes);
+            }
 
-                        @Override
-                        public void onFailure(AppException e) {
-                        }
-                    }
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onFailure(AppException e) {
+            }
+        });
     }
 
     private void initTabs(List<VideoType> videoTypes) {
@@ -135,7 +129,7 @@ public class IndexFragment extends BaseFragment {
         for (int i = 0; i < videoTypes.size()+1; i ++){
             if(i == 0){
                 tabs.add(i,"精选");
-                fragmentList.add(SelectedFragment.newInstance(videoList));
+                fragmentList.add(SelectedFragment.newInstance(videoTypes));
             }else{
                 tabs.add(i,videoTypes.get(i-1).getName());
                 fragmentList.add(TabFragments.newInstance(videoTypes.get(i-1).getName(),videoTypes.get(i-1).getVtid()));

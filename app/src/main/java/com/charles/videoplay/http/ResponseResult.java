@@ -5,10 +5,10 @@ import com.charles.videoplay.util.JsonParser;
 import java.lang.reflect.Type;
 
 public class ResponseResult<T> {
-
-    public String errcode;
-    public T data;
+    private static final long serialVersionUID = 1L;
+    public int errcode;
     public long time;
+    public T data;
 
     public Object getResult(Class<?> clazz) throws AppException {
         Object object;

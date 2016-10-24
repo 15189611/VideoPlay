@@ -1,6 +1,7 @@
 package com.charles.videoplay.fragment;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,14 +22,20 @@ import com.charles.videoplay.entity.IndexVideoList;
 import com.charles.videoplay.entity.VideoType;
 import com.charles.videoplay.entity.VideoTypeInfo;
 import com.charles.videoplay.http.AppException;
+import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.net.IndexRequest;
 import com.charles.videoplay.recyclerview.LayoutManager.ChLinearLayoutManager;
 import com.charles.videoplay.recyclerview.Listener.LoadDataListener;
 import com.charles.videoplay.recyclerview.View.PullRefreshRecycleView;
+import com.charles.videoplay.sp.ShareUtils;
+import com.charles.videoplay.util.Constant;
 import com.charles.videoplay.util.ImageLoadUtils;
 import com.charles.videoplay.util.JsonParser;
+import com.charles.videoplay.util.JsonUtil;
 import com.charles.videoplay.util.Logger;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,25 +50,24 @@ public class SelectedFragment extends BaseFragment implements LoadDataListener {
     @Bind(R.id.rvVideoList)
     PullRefreshRecycleView recycleView;
 
-    private IndexVideoList videoList;
     private SelectionAdapter adapter;
     private View inflate;
     private List<VideoType> datas = new ArrayList<>();
+    private List<VideoType> videoList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         if(arguments != null){
-            videoList = (IndexVideoList) arguments.getSerializable("videoList");
-            Logger.i(videoList.getData().size()+"");
+            videoList = (List<VideoType>) arguments.getSerializable("videoList");
         }
     }
 
-    public static SelectedFragment newInstance(IndexVideoList videoList){
+    public static SelectedFragment newInstance(List<VideoType> videoList){
         SelectedFragment selectedFragment = new SelectedFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("videoList",videoList);
+        bundle.putSerializable("videoList", (Serializable) videoList);
         selectedFragment.setArguments(bundle);
         return selectedFragment;
     }
@@ -77,7 +83,7 @@ public class SelectedFragment extends BaseFragment implements LoadDataListener {
 
     private void initData() {
         recycleView.setLoadDataListener(this);
-        datas.addAll(videoList.getData());
+        datas.addAll(videoList);
         adapter = new SelectionAdapter(datas);
         ChLinearLayoutManager layoutManager = new ChLinearLayoutManager(getBaseActivity());
         recycleView.setLayoutManager(layoutManager);
@@ -86,31 +92,26 @@ public class SelectedFragment extends BaseFragment implements LoadDataListener {
 
     @Override
     public void onRefresh() {  //刷新
-        try {
-            IndexRequest.getHomeVideoTypes(new ResponseListener<String>() {
-                @Override
-                public void onSuccess(String response) {
-                    IndexVideoList  videoList = JsonParser.deserializeByJson(response, IndexVideoList.class);
-                    recycleView.refreshComplete();
-                    if(videoList.getErrcode() == 0){
-                        if (videoList.getData() != null) {
-                            if(datas.size() > 0){
-                                datas.clear();
-                                datas.addAll(videoList.getData());
-                                adapter.notifyDataSetChanged();
-                            }
-                        }
-                    }
-                }
+        getData();
+    }
 
-                @Override
-                public void onFailure(AppException e) {
-                    recycleView.refreshComplete();
+    private void getData() {
+        UserRequest.newInstance().getIndexData(getBaseActivity(), "GetHomeVideoTypes", new ResponseListener<List<VideoType>>() {
+            @Override
+            public void onSuccess(List<VideoType> videoTypes) {
+                recycleView.refreshComplete();
+                if (videoTypes.size() > 0) {
+                    datas.clear();
+                    datas.addAll(videoTypes);
+                    adapter.notifyDataSetChanged();
                 }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            }
+
+            @Override
+            public void onFailure(AppException e) {
+                recycleView.refreshComplete();
+            }
+        });
     }
 
     @Override

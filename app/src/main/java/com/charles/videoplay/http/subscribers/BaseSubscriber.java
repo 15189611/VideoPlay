@@ -27,11 +27,6 @@ public class BaseSubscriber<T> extends Subscriber<T> {
         mResponseListener = responseListener;
     }
 
-    public BaseSubscriber(String requestMethod, ResponseListener<T> responseListener) {
-        mRequestMethod = requestMethod;
-        mResponseListener = responseListener;
-    }
-
     public BaseSubscriber(Activity activity, String requestMethod, ResponseListener<T> responseListener) {
         mActivity = activity;
         mRequestMethod = requestMethod;
@@ -63,22 +58,13 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
             mResponseListener.onFailure(appException);
         }
-        Log.i("Charles2", e.toString());
-        if (BuildConfig.DEBUG && e != null){
-            Logger.i("request" + " >>>> " + mRequestMethod);
-            Logger.i(JsonUtil.toJson(e));
-        }
+        Log.i("Charles2", "失败=="+ e.toString());
     }
 
     @Override
     public void onNext(T t) {
         if (mResponseListener != null) {
             mResponseListener.onSuccess(t);
-        }
-
-        if (BuildConfig.DEBUG){
-            Logger.i("request"+ " >>>> " + mRequestMethod);
-            Logger.i(JsonUtil.toJson(t));
         }
     }
 

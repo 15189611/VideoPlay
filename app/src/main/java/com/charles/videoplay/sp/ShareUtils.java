@@ -85,11 +85,8 @@ public class ShareUtils {
     }
 
     public static LoginUserInfo getUser(Context context) {
-        if (get(context,"User") != null) {
-            LoginUserInfo user = JsonParser.deserializeByJson(ShareUtils.get(context,"User").toString(), LoginUserInfo.class);
-            return user.getUid()>0?user:null;
-        } else {
-            return null;
-        }
+        String data = get(context, "User").toString();
+        LoginUserInfo user = JsonParser.deserializeByJson(data, LoginUserInfo.class);
+        return user;
     }
 }

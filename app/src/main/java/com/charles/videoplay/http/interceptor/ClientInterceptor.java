@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -31,42 +32,64 @@ public class ClientInterceptor implements Interceptor {
     public static String COOKIE = "Cookie";
     public static String KEY = "dsva@2016";
     public static String APPNAME = "dsapi";
+    private static MediaType MEDIA_TYPE_PLAIN ;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request2 = chain.request();
-        Request copy = chain.request().newBuilder().build();
-        final Buffer buffer = new Buffer();
-        copy.body().writeTo(buffer);
-        String header = buffer.readUtf8();
-        String url = request2.url().toString();
-        Log.i("Charles2", "url=" +url) ;
-        String[] strings = header.split("&");
-        Map<String,Object> parms = new HashMap<>();
+        Request mRequest = chain.request();
+        Request copy = mRequest.newBuilder().build();
 
-        for (int i = 0; i < strings.length ; i++) {
-            String item = strings[i];
-            String[] item2 = item.split("=");
-            if(item2.length == 1){
-                parms.put(item2[0],"");
-            }else{
-                if(item2[0].equals("platform")){
-                    parms.put(item2[0],Integer.valueOf(item2[1]));
-                    continue;
-                }else if(item2[0].equals("myuid")){
-                    parms.put(item2[0],Integer.valueOf(item2[1]));
-                    continue;
-                }else{
-                    parms.put(item2[0],item2[1]);
+        String url = mRequest.url().toString();
+        String method = copy.method();
+
+        Request request = null;
+        if("GET".equals(method)){
+            request = chain.request().newBuilder()
+                    .addHeader("Connection", "Keep-Alive")
+                    .addHeader(COOKIE, getRequestKey(url))
+                    .build();
+            Log.i("Charles2", "Get=" +url);
+        }else{
+            final Buffer buffer = new Buffer();
+            copy.body().writeTo(buffer);
+            String header = buffer.readUtf8();
+
+            MediaType mediaType = copy.body().contentType();
+            if (mediaType != null) {
+                if (!isText(mediaType)) {
+                    MEDIA_TYPE_PLAIN = MediaType.parse("text/plain;charset=utf-8");
                 }
             }
+
+            String[] strings = header.split("&");
+            Map<String,Object> parms = new HashMap<>();
+
+            for (int i = 0; i < strings.length ; i++) {
+                String item = strings[i];
+                String[] item2 = item.split("=");
+                if(item2.length == 1){
+                    parms.put(item2[0],"");
+                }else{
+                    if(item2[0].equals("platform")){
+                        parms.put(item2[0],Integer.valueOf(item2[1]));
+                        continue;
+                    }else if(item2[0].equals("myuid")){
+                        parms.put(item2[0],Integer.valueOf(item2[1]));
+                        continue;
+                    }else{
+                        parms.put(item2[0],item2[1]);
+                    }
+                }
+            }
+            RequestBody  body = RequestBody.create(MEDIA_TYPE_PLAIN, JsonUtil.toJson(parms));
+             request = chain.request().newBuilder()
+                    .addHeader("Connection", "Keep-Alive")
+                    .addHeader(COOKIE, getRequestKey(url, JsonUtil.toJson(parms)))
+                    .post(body)
+                    .build();
+            Log.i("Charles2","Post="+JsonUtil.toJson(parms) + "--url==" + url);
         }
-        Log.i("Charles2","自己的="+JsonUtil.toJson(parms));
-        final Request request = chain.request().newBuilder()
-                .addHeader("Connection", "Keep-Alive")
-                .addHeader("charset", "utf-8")
-                .addHeader(COOKIE, getRequestKey(url,JsonUtil.toJson(parms)))
-                .build();
+
 
         if (BuildConfig.DEBUG) {
             Response response = chain.proceed(request);
@@ -76,7 +99,25 @@ public class ClientInterceptor implements Interceptor {
         return chain.proceed(request);
     }
 
-    public static String getRequestKey(String url) throws Exception{
+    private boolean isText(MediaType mediaType)
+    {
+        if (mediaType.type() != null && mediaType.type().equals("text"))
+        {
+            return true;
+        }
+        if (mediaType.subtype() != null)
+        {
+            if (mediaType.subtype().equals("json") ||
+                    mediaType.subtype().equals("xml") ||
+                    mediaType.subtype().equals("html") ||
+                    mediaType.subtype().equals("webviewhtml")
+                    )
+                return true;
+        }
+        return false;
+    }
+
+    public static String getRequestKey(String url){
         return getRequestKey(url,null);
     }
 
@@ -89,7 +130,9 @@ public class ClientInterceptor implements Interceptor {
         rc.setCid(1);
         rc.setVer(VideoPlayApplication.getAppVersion());
         rc.setMid(VideoPlayApplication.getDeviceId());
+        rc.setNet("wifi");
         rc.setOsver(android.os.Build.VERSION.RELEASE);
+
         rc.setSum(getSum(url, rc, postdata));
         Logger.i("REQ_KAY = " + REQ_KAY + '=' + JsonUtil.toJson(rc));
         return REQ_KAY+'='+ JsonUtil.toJson(rc);
@@ -133,4 +176,5 @@ public class ClientInterceptor implements Interceptor {
 
         return response;
     }
+
 }
