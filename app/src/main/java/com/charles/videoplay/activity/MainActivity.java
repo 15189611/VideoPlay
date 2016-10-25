@@ -13,8 +13,6 @@ import com.charles.videoplay.fragment.BangDanFragment;
 import com.charles.videoplay.fragment.IndexFragment;
 import com.charles.videoplay.fragment.LoveFragment;
 import com.charles.videoplay.fragment.MineFragment;
-import com.charles.videoplay.http.VideoPlayRequest;
-import com.charles.videoplay.net.VideoNetWork;
 import com.charles.videoplay.ui.Tab;
 import com.charles.videoplay.ui.TabIndicator;
 import com.charles.videoplay.widget.NoScrollViewPager;
@@ -160,7 +158,7 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
     }
 
     private void setBangDanTitle() {
-        toolbarParent.setVisibility(View.VISIBLE);
+        toolbarParent.setVisibility(View.GONE);
         tvTitle.setText("榜单");
     }
 

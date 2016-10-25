@@ -2,7 +2,8 @@ package com.charles.videoplay.http.apiservice;
 
 import android.app.Activity;
 
-import com.charles.videoplay.entity.BandanList;
+import com.charles.videoplay.entity.BangdanList;
+import com.charles.videoplay.entity.BangdanVideos;
 import com.charles.videoplay.entity.LoginUserInfo;
 import com.charles.videoplay.entity.VedioDetails;
 import com.charles.videoplay.entity.VideoType;
@@ -70,18 +71,18 @@ public class UserRequest extends VideoPlayRequest {
         requestGetWithActivity(activity,method,map,type,listener);
     }
 
-    public void GetBangList(Activity activity,String method,ResponseListener<List<BandanList>> listener ){
+    public void GetBangList(Activity activity,String method,ResponseListener<List<BangdanList>> listener ){
         Map<String, Object> map = new HashMap<>();
         LoginUserInfo userInfo = ShareUtils.getUser(activity);
         map.put("myuid",userInfo.getUid());
 
-        Type type = new TypeToken<List<VedioDetails>>() {
+        Type type = new TypeToken<List<BangdanList>>() {
         }.getType();
 
         requestGetWithActivity(activity,method,map,type,listener);
     }
 
-    public void GetBangVideos(Activity activity,String method, int page,ResponseListener<List<BandanList>> listener ){
+    public void GetBangVideos(Activity activity,String method ,int bid,int page,ResponseListener<List<BangdanVideos>> listener ){
         Map<String, Object> map = new HashMap<>();
         LoginUserInfo userInfo = ShareUtils.getUser(activity);
 
@@ -94,9 +95,9 @@ public class UserRequest extends VideoPlayRequest {
         }
         map.put("myuid",userInfo.getUid());
         map.put("from",fromCount);
-        map.put("bid",1);
+        map.put("bid",bid);
         map.put("cnt",cnt);
-        Type type = new TypeToken<List<VedioDetails>>() {
+        Type type = new TypeToken<List<BangdanVideos>>() {
         }.getType();
 
         requestGetWithActivity(activity,method,map,type,listener);
