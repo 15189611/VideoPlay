@@ -57,13 +57,11 @@ public class IndexRequest {
                         if (listener != null) {
                             listener.onFailure((AppException) e);
                         }
-                        Logger.i("失败==" + e.getMessage());
                     }
 
                     @Override
                     public void onResponse(String response) {
                         if (listener != null) {
-                            Logger.i("成功==" + response);
                             listener.onSuccess(response);
                         }
                     }
@@ -98,7 +96,6 @@ public class IndexRequest {
             }
             url = sb.substring(0, sb.length() - 1).toString();
         }
-        Log.i("Charles2", "正式的url==" +url);
         OkHttpUtils
                 .get()
                 .url(url)
@@ -110,12 +107,10 @@ public class IndexRequest {
                         if (listener != null) {
                             listener.onFailure((AppException) e);
                         }
-                        Logger.i("失败==" + e.getMessage());
                     }
                     @Override
                     public void onResponse(String response) {
                         if (listener != null) {
-                            Logger.i("成功==" + response);
                             listener.onSuccess(response);
                         }
                     }

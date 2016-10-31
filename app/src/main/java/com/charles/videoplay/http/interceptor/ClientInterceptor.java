@@ -173,7 +173,6 @@ public class ClientInterceptor implements Interceptor {
             } catch (Exception ignored) {
             }
         }
-
         return response;
     }
 

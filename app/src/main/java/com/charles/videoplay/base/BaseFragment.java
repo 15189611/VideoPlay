@@ -44,6 +44,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Logger.i("FragmentName=" + TAG);
     }
 
     protected abstract void fetchObjectData();

@@ -30,7 +30,7 @@ public class VideoPlayApplication extends Application {
         super.onCreate();
         application = this;
         context = application.getApplicationContext();
-        initOkhttp();
+    //    initOkhttp();
         Screen.initScreen(getApplicationContext());
     }
 
