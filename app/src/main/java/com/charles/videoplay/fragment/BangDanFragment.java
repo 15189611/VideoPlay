@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.charles.videoplay.R;
 import com.charles.videoplay.base.BaseFragment;
 import com.charles.videoplay.entity.BangdanList;
-import com.charles.videoplay.entity.BangdanVideos;
 import com.charles.videoplay.http.AppException;
 import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
@@ -39,7 +38,6 @@ public class BangDanFragment extends BaseFragment {
     NoScrollViewPager viewPager;
 
     private List<BangdanList> mBandanList = new ArrayList<>();
-    private List<BangdanVideos> mBangdanVideos = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
     private BangdanPagerAdapter  bangdanPagerAdapter;
 
@@ -106,18 +104,6 @@ public class BangDanFragment extends BaseFragment {
             }
         });
 
-        UserRequest.newInstance().GetBangVideos(getBaseActivity(), "GetBangVideos", 1, 0,new ResponseListener<List<BangdanVideos>>() {
-            @Override
-            public void onSuccess(List<BangdanVideos> bangdanVideoses) {
-                if(bangdanVideoses != null && bangdanVideoses.size() > 0){
-                    mBangdanVideos.addAll(bangdanVideoses);
-                }
-            }
-
-            @Override
-            public void onFailure(AppException e) {
-            }
-        });
     }
 
     @Override
