@@ -6,11 +6,10 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
-    <!-- 视频缩列图 -->
    <com.charles.videoplay.widget.MyRelativeLayout
         android:id="@+id/rlVedioBg"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:background="@mipmap/vedio_default_background"
         android:focusable="false">
 

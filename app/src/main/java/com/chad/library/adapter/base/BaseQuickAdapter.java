@@ -217,12 +217,9 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
         notifyDataSetChanged();
     }
 
-    private boolean mIsOnBind=false;
     public void setNextLoadEnable(boolean enable) {
         mNextLoadEnable = enable;
-        if (!mIsOnBind) {
-            notifyDataSetChanged();
-        }
+        notifyDataSetChanged();
     }
 
 

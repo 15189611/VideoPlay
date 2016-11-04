@@ -1,7 +1,6 @@
 package com.charles.videoplay.fragment;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,25 +14,17 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.charles.videoplay.R;
-import com.charles.videoplay.adapter.IndexGridViewAdapter;
 import com.charles.videoplay.adapter.IndexGridViewAdapter2;
 import com.charles.videoplay.base.BaseFragment;
-import com.charles.videoplay.entity.IndexVideoList;
 import com.charles.videoplay.entity.VideoType;
 import com.charles.videoplay.entity.VideoTypeInfo;
 import com.charles.videoplay.http.AppException;
 import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
-import com.charles.videoplay.net.IndexRequest;
 import com.charles.videoplay.recyclerview.LayoutManager.ChLinearLayoutManager;
 import com.charles.videoplay.recyclerview.Listener.LoadDataListener;
 import com.charles.videoplay.recyclerview.View.PullRefreshRecycleView;
-import com.charles.videoplay.sp.ShareUtils;
-import com.charles.videoplay.util.Constant;
 import com.charles.videoplay.util.ImageLoadUtils;
-import com.charles.videoplay.util.JsonParser;
-import com.charles.videoplay.util.JsonUtil;
-import com.charles.videoplay.util.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -82,12 +73,13 @@ public class SelectedFragment extends BaseFragment implements LoadDataListener {
     }
 
     private void initData() {
-        recycleView.setLoadDataListener(this);
+        recycleView.setNoLoadMore(true);
         datas.addAll(videoList);
         adapter = new SelectionAdapter(datas);
         ChLinearLayoutManager layoutManager = new ChLinearLayoutManager(getBaseActivity());
         recycleView.setLayoutManager(layoutManager);
         recycleView.setAdapter(adapter);
+        recycleView.setLoadDataListener(this);
     }
 
     @Override

@@ -13,9 +13,9 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.charles.videoplay.R;
 import com.charles.videoplay.recyclerview.LayoutManager.ChGridLayoutManager;
@@ -39,9 +39,7 @@ public class PullRefreshRecycleView extends RecyclerView implements Runnable {
 
     private boolean pullToRefreshEnable = true;
     private boolean loadMoreEnable = true;
-
-    private View mHead;
-    private View mFoot;
+    private boolean noLoadMore;             //不要加载更多的回调
 
     private BaseQuickAdapter mAdapter;
     private Handler mHandler = new MyHandler();
@@ -113,29 +111,37 @@ public class PullRefreshRecycleView extends RecyclerView implements Runnable {
 
     public void refreshComplete() {
         isLoadingData = false;
-        if (!loadMoreEnable) {
+       if (!loadMoreEnable) {       //这是当我们加载更多没有数据了 此时的标记会为false,刷新后又可以重新去加载更多
             mAdapter.removeAllFooterView();
             mAdapter.setNextLoadEnable(true);
         }
         headerImageHint();
     }
-    public void loadMoreComplete() {
+
+    public void loadMoreComplete() {   //加载更多后，调用消失加载的Dialog
         isLoadingData = false;
-        mAdapter.loadComplete();
+        if(mAdapter != null){
+            mAdapter.loadComplete();
+        }
         setLoadMoreEnable(true);
     }
 
-    public void setLoadMoreEnable(boolean loadMoreEnable) {
+   public void setLoadMoreEnable(boolean loadMoreEnable) {  //设置没有更多数据,可以调用(传false)
         this.loadMoreEnable = loadMoreEnable;
         if (mAdapter != null) {
             mAdapter.setNextLoadEnable(loadMoreEnable);
         }
     }
 
-    public void loadNoMoreView() {
+
+    public void loadNoMoreView() {       //设置没有更多数据，带有文本提示
         mAdapter.loadComplete();
         setLoadMoreEnable(false);
         mAdapter.addFooterView(LayoutInflater.from(mContext).inflate(R.layout.not_loading, this, false));
+    }
+
+    public void setNoLoadMore(boolean noLoadMore){   //设置不要加载更多的回调  true 不要
+        this.noLoadMore = noLoadMore;
     }
 
     public void showMoreFailedView(){
@@ -168,16 +174,6 @@ public class PullRefreshRecycleView extends RecyclerView implements Runnable {
         animator.start();
     }
 
-    public void setHeadView(View head){
-        //TODO
-        this.mHead = head;
-    }
-
-    public void setFootView(View foot){
-        //TODO
-        this.mFoot = foot;
-    }
-
     @Override
     public void setAdapter(Adapter adapter) {
         mAdapter = (BaseQuickAdapter) adapter;
@@ -196,18 +192,17 @@ public class PullRefreshRecycleView extends RecyclerView implements Runnable {
             mAdapter.addHeaderView(headerLayout);
         }
 
-        if (loadMoreEnable) {
-           // mAdapter.addFooterView(LayoutInflater.from(mContext).inflate(R.layout.def_loading, this, false));
-            mAdapter.setLoadingView(LayoutInflater.from(mContext).inflate(R.layout.def_loading, this, false));
-        }
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {  //更多监听回调
-            @Override
-            public void onLoadMoreRequested() {
-                if(mLoadDataListener != null){
-                    mLoadDataListener.onLoadMore();
+        mAdapter.setLoadingView(LayoutInflater.from(mContext).inflate(R.layout.def_loading, this, false));
+        if(!noLoadMore){
+            mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {  //更多监听回调
+                @Override
+                public void onLoadMoreRequested() {
+                    if(mLoadDataListener != null){
+                        mLoadDataListener.onLoadMore();
+                    }
                 }
-            }
-        });
+            });
+        }
 
         super.setAdapter(adapter);
     }

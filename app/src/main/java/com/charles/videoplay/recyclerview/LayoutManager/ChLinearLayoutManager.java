@@ -32,7 +32,9 @@ public class ChLinearLayoutManager extends LinearLayoutManager {
     @Override
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
         int scrollRange = super.scrollVerticallyBy(dy, recycler, state);
-        mListener.overScrollBy(dy - scrollRange);
+        if(mListener != null){
+            mListener.overScrollBy(dy - scrollRange);
+        }
 
         return scrollRange;
     }

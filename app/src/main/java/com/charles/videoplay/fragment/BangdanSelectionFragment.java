@@ -15,6 +15,7 @@ import com.charles.videoplay.http.AppException;
 import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.recyclerview.LayoutManager.ChLinearLayoutManager;
+import com.charles.videoplay.recyclerview.Listener.LoadDataListener;
 import com.charles.videoplay.recyclerview.View.PullRefreshRecycleView;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class BangdanSelectionFragment extends BaseFragment {
 
     private String title;
     private int bid;
+    private int mPage;
     private List<BangdanVideos> mBangdanVideos = new ArrayList<>();
 
      private MyBangdanAdapter adapter;
@@ -62,21 +64,62 @@ public class BangdanSelectionFragment extends BaseFragment {
         recycleView.setLayoutManager(layoutManager);
         adapter = new MyBangdanAdapter(mBangdanVideos);
         recycleView.setAdapter(adapter);
+        recycleView.setLoadDataListener(new LoadDataListener() {
+            @Override
+            public void onRefresh() {
+                mPage = 0;
+                getBangVideos(false,mPage);
+            }
+
+            @Override
+            public void onLoadMore() {
+                mPage++;
+                getBangVideos(true,mPage);
+            }
+        });
     }
 
     @Override
     protected void fetchObjectData() {
-        UserRequest.newInstance().GetBangVideos(getBaseActivity(), "GetBangVideos", bid, 0,new ResponseListener<List<BangdanVideos>>() {
+        recycleView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recycleView.forceRefresh();
+            }
+        }, 200);
+    }
+
+    private void getBangVideos(final boolean isLoadMore , final int Page) {
+        UserRequest.newInstance().GetBangVideos(getBaseActivity(), "GetBangVideos", bid, Page, new ResponseListener<List<BangdanVideos>>() {
             @Override
             public void onSuccess(List<BangdanVideos> bangdanVideoses) {
+                if(!isLoadMore){
+                    mBangdanVideos.clear();
+                    recycleView.refreshComplete();
+                }else {
+                    recycleView.loadMoreComplete();
+                }
+
                 if(bangdanVideoses != null && bangdanVideoses.size() > 0){
                     mBangdanVideos.addAll(bangdanVideoses);
                     adapter.notifyDataSetChanged();
+                }else {
+                    if (Page == 0) {
+                        mBangdanVideos.clear();
+                        adapter.notifyDataSetChanged();
+                    }
+                    recycleView.loadNoMoreView();
                 }
+
             }
 
             @Override
             public void onFailure(AppException e) {
+                if (isLoadMore) {
+                    recycleView.loadMoreComplete();
+                } else {
+                    recycleView.refreshComplete();
+                }
             }
         });
     }

@@ -9,6 +9,7 @@
     <com.charles.videoplay.widget.NoScrollViewPager
         android:id="@+id/fm_content"
         android:layout_below="@+id/llToolbarParent"
+        android:layout_above="@+id/mMainTabLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
