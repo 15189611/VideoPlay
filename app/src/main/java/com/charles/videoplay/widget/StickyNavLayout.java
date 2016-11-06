@@ -1,4 +1,4 @@
-package com.charles.videoplay.ui;
+package com.charles.videoplay.widget;
 
 import android.content.Context;
 import android.support.v4.view.NestedScrollingParent;
