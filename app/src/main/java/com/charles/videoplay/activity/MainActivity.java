@@ -13,6 +13,7 @@ import com.charles.videoplay.fragment.BangDanFragment;
 import com.charles.videoplay.fragment.IndexFragment;
 import com.charles.videoplay.fragment.LoveFragment;
 import com.charles.videoplay.fragment.MineFragment;
+import com.charles.videoplay.ijkplay.JCVideoPlayer;
 import com.charles.videoplay.ui.Tab;
 import com.charles.videoplay.ui.TabIndicator;
 import com.charles.videoplay.widget.NoScrollViewPager;
@@ -113,6 +114,7 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
 
     @Override
     public void onTabClick(int positon) {
+        JCVideoPlayer.releaseAllVideos();
         if (positon == INDEX) {
             viewPager.setCurrentItem(INDEX, false);
         } else if (positon == LOVE) {
@@ -123,6 +125,7 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
             viewPager.setCurrentItem(MYSELF, false);
         }
     }
+
     public class PageListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -170,6 +173,20 @@ public class MainActivity extends BaseActivity implements TabIndicator.OnTabClic
     private void setIndexTitle() {
         toolbarParent.setVisibility(View.GONE);
         tvTitle.setText("首页");
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     @Override

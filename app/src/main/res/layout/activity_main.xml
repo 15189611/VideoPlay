@@ -23,7 +23,7 @@
         <View
             style="@style/full_line_style"
             android:layout_height="@dimen/margin_one"
-            android:background="@color/blue" />
+            android:background="@color/white_70" />
 
         <com.charles.videoplay.ui.TabIndicator
             android:id="@+id/mMainIndicator"

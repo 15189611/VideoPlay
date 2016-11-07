@@ -22,6 +22,7 @@ import com.charles.videoplay.http.AppException;
 import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
 import com.charles.videoplay.recyclerview.LayoutManager.ChLinearLayoutManager;
+import com.charles.videoplay.recyclerview.LayoutManager.DividerItemDecoration;
 import com.charles.videoplay.recyclerview.Listener.LoadDataListener;
 import com.charles.videoplay.recyclerview.View.PullRefreshRecycleView;
 import com.charles.videoplay.util.ImageLoadUtils;
@@ -78,6 +79,8 @@ public class SelectedFragment extends BaseFragment implements LoadDataListener {
         adapter = new SelectionAdapter(datas);
         ChLinearLayoutManager layoutManager = new ChLinearLayoutManager(getBaseActivity());
         recycleView.setLayoutManager(layoutManager);
+        recycleView.addItemDecoration(new DividerItemDecoration(getBaseActivity(),
+                DividerItemDecoration.VERTICAL_LIST));
         recycleView.setAdapter(adapter);
         recycleView.setLoadDataListener(this);
     }

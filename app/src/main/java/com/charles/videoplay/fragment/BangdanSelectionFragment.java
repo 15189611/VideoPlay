@@ -2,21 +2,22 @@ package com.charles.videoplay.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.charles.videoplay.R;
+import com.charles.videoplay.adapter.MyBangdanAdapter;
 import com.charles.videoplay.base.BaseFragment;
 import com.charles.videoplay.entity.BangdanVideos;
 import com.charles.videoplay.http.AppException;
 import com.charles.videoplay.http.apiservice.UserRequest;
 import com.charles.videoplay.http.responselistener.ResponseListener;
+import com.charles.videoplay.ijkplay.JCVideoPlayer;
 import com.charles.videoplay.recyclerview.LayoutManager.ChLinearLayoutManager;
-import com.charles.videoplay.recyclerview.Listener.LoadDataListener;
-import com.charles.videoplay.recyclerview.View.PullRefreshRecycleView;
+import com.charles.videoplay.videolistutil.calculator.SingleListViewItemActiveCalculator;
+import com.charles.videoplay.videolistutil.scroll_utils.RecyclerViewItemPositionGetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,15 +32,21 @@ import butterknife.ButterKnife;
 
 public class BangdanSelectionFragment extends BaseFragment {
 
+/*    @Bind(R.id.rvBangDan)
+    PullRefreshRecycleView recycleView;*/
+
     @Bind(R.id.rvBangDan)
-    PullRefreshRecycleView recycleView;
+    RecyclerView recycleView;
 
     private String title;
     private int bid;
     private int mPage;
     private List<BangdanVideos> mBangdanVideos = new ArrayList<>();
+    private MyBangdanAdapter adapter;
 
-     private MyBangdanAdapter adapter;
+    private int mScrollState;
+    private SingleListViewItemActiveCalculator mCalculator;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +68,28 @@ public class BangdanSelectionFragment extends BaseFragment {
 
     private void initData() {
         ChLinearLayoutManager layoutManager = new  ChLinearLayoutManager(getBaseActivity());
+        adapter = new MyBangdanAdapter(getActivity(),recycleView,mBangdanVideos);
+
+        mCalculator = new SingleListViewItemActiveCalculator(adapter,
+                new RecyclerViewItemPositionGetter(layoutManager, recycleView));
+
         recycleView.setLayoutManager(layoutManager);
-        adapter = new MyBangdanAdapter(mBangdanVideos);
         recycleView.setAdapter(adapter);
-        recycleView.setLoadDataListener(new LoadDataListener() {
+        recycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                mScrollState = newState;
+                if(newState == RecyclerView.SCROLL_STATE_IDLE && adapter.getItemCount() > 0){
+                    mCalculator.onScrollStateIdle();
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                mCalculator.onScrolled(mScrollState);
+            }
+        });
+       /* recycleView.setLoadDataListener(new LoadDataListener() {
             @Override
             public void onRefresh() {
                 mPage = 0;
@@ -76,17 +101,19 @@ public class BangdanSelectionFragment extends BaseFragment {
                 mPage++;
                 getBangVideos(true,mPage);
             }
-        });
+        });*/
     }
 
     @Override
     protected void fetchObjectData() {
-        recycleView.postDelayed(new Runnable() {
+       /* recycleView.postDelayed(new Runnable() {
             @Override
             public void run() {
                 recycleView.forceRefresh();
             }
-        }, 200);
+        }, 200);*/
+        mPage = 0;
+        getBangVideos(false,mPage);
     }
 
     private void getBangVideos(final boolean isLoadMore , final int Page) {
@@ -95,9 +122,9 @@ public class BangdanSelectionFragment extends BaseFragment {
             public void onSuccess(List<BangdanVideos> bangdanVideoses) {
                 if(!isLoadMore){
                     mBangdanVideos.clear();
-                    recycleView.refreshComplete();
+                   // recycleView.refreshComplete();
                 }else {
-                    recycleView.loadMoreComplete();
+                  //  recycleView.loadMoreComplete();
                 }
 
                 if(bangdanVideoses != null && bangdanVideoses.size() > 0){
@@ -108,7 +135,7 @@ public class BangdanSelectionFragment extends BaseFragment {
                         mBangdanVideos.clear();
                         adapter.notifyDataSetChanged();
                     }
-                    recycleView.loadNoMoreView();
+                 //   recycleView.loadNoMoreView();
                 }
 
             }
@@ -116,25 +143,18 @@ public class BangdanSelectionFragment extends BaseFragment {
             @Override
             public void onFailure(AppException e) {
                 if (isLoadMore) {
-                    recycleView.loadMoreComplete();
+                  //  recycleView.loadMoreComplete();
                 } else {
-                    recycleView.refreshComplete();
+                 //   recycleView.refreshComplete();
                 }
             }
         });
     }
 
-    private class MyBangdanAdapter extends BaseQuickAdapter<BangdanVideos>{
-
-        public MyBangdanAdapter(List<BangdanVideos> data) {
-            super(R.layout.item_bangdan, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, BangdanVideos item) {
-            helper.setText(R.id.item_bangdan_nick,item.userNick);
-        }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     @Override

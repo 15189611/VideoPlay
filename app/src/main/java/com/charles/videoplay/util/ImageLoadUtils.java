@@ -53,7 +53,6 @@ public class ImageLoadUtils {
         Glide
                 .with(context)
                 .load(imgUrl)
-                .centerCrop()
                 .placeholder(drawableRes)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -65,7 +64,6 @@ public class ImageLoadUtils {
         Glide
                 .with(context)
                 .load(imgUrl)
-                .centerCrop()
                 .placeholder(drawableRes)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

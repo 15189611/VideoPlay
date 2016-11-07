@@ -55,6 +55,7 @@ public class BangDanFragment extends BaseFragment {
         bangdanPagerAdapter = new BangdanPagerAdapter(getChildFragmentManager(),mBandanList,fragmentList);
         viewPager.setCurrentItem(0);
         mTabLayout.setupWithViewPager(viewPager);
+
     }
 
     private class BangdanPagerAdapter extends FragmentPagerAdapter {

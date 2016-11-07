@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:padding="5dp">
+
+            <!-- 用户头像 -->
+            <ImageView
+                android:id="@+id/video_item_pic"
+                android:layout_width="@dimen/dp_36"
+                android:layout_height="@dimen/dp_36"
+                android:layout_centerVertical="true"
+                android:contentDescription="头像"
+                android:scaleType="fitXY" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/video_item_pic"
+                android:orientation="vertical">
+
+                <!-- 用户名 -->
+                <TextView
+                    android:id="@+id/video_item_userNick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLength="7"
+                    android:textColor="#070707"
+                    android:textSize="@dimen/sp_14" />
+
+                <!-- 视频上传时间跟视频播放次数 -->
+                <TextView
+                    android:id="@+id/video_item_playcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/recommendedVedioTypeAll"
+                    android:textSize="@dimen/sp_14" />
+            </LinearLayout>
+
+            <!-- 关注 -->
+            <TextView
+                android:id="@+id/video_item_foucus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/video_barrage"
+                android:gravity="center"
+                android:text="弹幕"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <!-- 视频控件 -->
+        <com.charles.videoplay.ijkplay.JCVideoPlayerStandard
+            android:id="@+id/video_item_play"
+            android:layout_width="match_parent"
+            android:layout_weight="0.7"
+            android:layout_height="300dp" />
+
+        <!-- 视频描述 -->
+        <TextView
+            android:id="@+id/video_item_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="描述"
+            android:layout_weight="0.1"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_weight="0.1"
+            android:id="@+id/share_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="点赞量"
+                    android:src="@mipmap/thumb" />
+
+                <!-- 评论数 -->
+                <TextView
+                    android:id="@+id/video_item_comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="0"
+                    android:textColor="#4D4D4D" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#EAEAEA"
+                android:contentDescription="@string/app_name" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/seven_focus_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="粉丝量"
+                    android:src="@mipmap/video_focus" />
+
+                <!-- 粉丝量 -->
+                <TextView
+                    android:id="@+id/video_item_fans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="1"
+                    android:textColor="#4D4D4D" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#EAEAEA"
+                android:contentDescription="@string/app_name" />
+
+            <LinearLayout
+                android:id="@+id/video_item_share"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="分享"
+                    android:src="@mipmap/share" />
+
+                <!-- 分享 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="分享"
+                    android:textColor="#4D4D4D" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
