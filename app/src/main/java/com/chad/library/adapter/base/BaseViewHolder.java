@@ -36,10 +36,12 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.charles.videoplay.videolistutil.items.ListItem;
+
 import java.util.HashSet;
 
 
-public class BaseViewHolder extends RecyclerView.ViewHolder {
+public class BaseViewHolder extends RecyclerView.ViewHolder implements ListItem {
 
     /**
      * Views indexed with their IDs
@@ -501,4 +503,30 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     public void setAssociatedObject(Object associatedObject) {
         this.associatedObject = associatedObject;
     }
+
+    @Override
+    public void setActive(View newActiveView, int newActiveViewPosition) {
+        if(positionVisible != null){
+            positionVisible.setActive(newActiveView, newActiveViewPosition);
+        }
+    }
+
+    @Override
+    public void deactivate(View currentView, int position) {
+        if(positionVisible != null){
+            positionVisible.deactivate(currentView, position);
+        }
+    }
+
+    private PositionVisible positionVisible;
+    
+    public void setPositionVisible(PositionVisible positionVisible) {
+        this.positionVisible = positionVisible;
+    }
+
+    public interface PositionVisible{
+        void setActive(View newActiveView, int newActiveViewPosition);
+        void deactivate(View currentView, int position);
+    }
+
 }

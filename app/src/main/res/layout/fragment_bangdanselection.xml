@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--
+
     <com.charles.videoplay.recyclerview.View.PullRefreshRecycleView
         android:id="@+id/rvBangDan"
         android:layout_width="match_parent"
@@ -11,14 +11,6 @@
         android:background="@color/pull_refresh_text_color"
         android:cacheColorHint="#00000000"
         android:fadingEdge="none" />
--->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvBangDan"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/pull_refresh_text_color"
-        android:cacheColorHint="#00000000"
-        android:fadingEdge="none" />
 
 </RelativeLayout>

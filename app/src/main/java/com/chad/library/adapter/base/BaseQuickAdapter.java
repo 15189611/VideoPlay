@@ -50,7 +50,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 
-public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements BaseViewHolder.PositionVisible {
 
     private boolean mNextLoadEnable = false;
     private boolean mLoadingMoreEnable = false;
@@ -92,6 +92,16 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
     public static final int FOOTER_VIEW = 0x00000333;
     public static final int EMPTY_VIEW = 0x00000555;
     private View mLoadingView;
+
+    @Override
+    public void setActive(View newActiveView, int newActiveViewPosition) {
+
+    }
+
+    @Override
+    public void deactivate(View currentView, int position) {
+
+    }
 
     @IntDef({ALPHAIN, SCALEIN, SLIDEIN_BOTTOM, SLIDEIN_LEFT, SLIDEIN_RIGHT})
     @Retention(RetentionPolicy.SOURCE)
@@ -436,6 +446,7 @@ public abstract class BaseQuickAdapter<T> extends RecyclerView.Adapter<RecyclerV
             default:
                 baseViewHolder = onCreateDefViewHolder(parent, viewType);
         }
+        baseViewHolder.setPositionVisible(this);
         return baseViewHolder;
 
     }
